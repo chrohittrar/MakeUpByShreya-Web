@@ -30,7 +30,7 @@
     askMeAbout: ["Java", "React", "Spring"],
     email: "rohit.kumar253324@gmail.com",
     funFact: "I think I'm funny 😉",
-    location: "India 🇮🇳"
+    location: "Pune, India"
   };
   ```
 </div>
