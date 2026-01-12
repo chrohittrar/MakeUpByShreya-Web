@@ -1,6 +1,7 @@
 const productCategories = [
   {
     category: "Face",
+    accent: "Complexion",
     brands: [
       "MAC Cosmetics",
       "Estée Lauder",
@@ -11,6 +12,7 @@ const productCategories = [
   },
   {
     category: "Eyes",
+    accent: "Definition",
     brands: [
       "Huda Beauty",
       "Anastasia Beverly Hills",
@@ -20,6 +22,7 @@ const productCategories = [
   },
   {
     category: "Lips",
+    accent: "Tone",
     brands: [
       "MAC Cosmetics",
       "Huda Beauty",
@@ -29,6 +32,7 @@ const productCategories = [
   },
   {
     category: "Professional / HD",
+    accent: "Precision",
     brands: [
       "Kryolan",
       "Make Up For Ever",
@@ -40,50 +44,78 @@ const productCategories = [
 const ProductsUsed = () => {
   return (
     <section id="products" className="relative py-20">
-      {/* Soft glass background */}
-      <div className="absolute inset-0 bg-white/20 backdrop-blur-sm" />
+      {/* Soft background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-white/10" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-accent text-brandGray tracking-wide mb-3">
-            Products I Use
+        {/* Centered Heading */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-accent text-brandGray mb-6">
+            The Products I Use
           </h2>
-          <p className="text-gray-500">
-            Premium, skin-safe products trusted by professionals
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Every product is carefully chosen to deliver flawless results,
+            long-lasting wear, and skin-safe performance.
           </p>
         </div>
 
-        {/* Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-20">
           {productCategories.map((item, index) => (
-            <div
-              key={index}
-              className="
-                bg-white/70 backdrop-blur-lg
-                rounded-2xl shadow-lg
-                p-8
-              "
-            >
-              <h3 className="text-xl font-semibold text-brandGray mb-5">
+            <div key={index} className="text-center md:text-left">
+              
+              {/* Accent */}
+              <p className="uppercase tracking-[0.35em] text-sm text-brandGray/50 mb-3">
+                {item.accent}
+              </p>
+
+              {/* Category */}
+              <h3 className="text-2xl font-regular text-brandGray mb-6">
                 {item.category}
               </h3>
 
-              <ul className="space-y-3 text-gray-600">
+              {/* Divider */}
+              <div className="w-16 h-[1px] bg-brandGray/30 mb-8 mx-auto md:mx-0" />
+
+              {/* Brands */}
+              <div className="flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-4">
                 {item.brands.map((brand, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    {/* Bullet */}
-                    <span className="w-2 h-2 rounded-full bg-brandGray/60" />
-                    <span>{brand}</span>
-                  </li>
+                  <span
+                    key={i}
+                    className="
+                      text-brandGray
+                      text-lg
+                      font-medium
+                      relative
+                      transition-all duration-300
+                      hover:text-black
+                      after:absolute
+                      after:left-0
+                      after:-bottom-1
+                      after:w-0
+                      after:h-[1px]
+                      after:bg-black
+                      after:transition-all
+                      after:duration-300
+                      hover:after:w-full
+                    "
+                  >
+                    {brand}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
 
+        {/* Footer Note */}
+        <div className="mt-20 text-center">
+          <p className="text-gray-400 text-sm max-w-2xl mx-auto leading-relaxed">
+            *Products are selected based on skin type, lighting, occasion,
+            and individual preferences to ensure a refined and lasting finish.
+          </p>
+        </div>
       </div>
     </section>
   );

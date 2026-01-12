@@ -37,7 +37,7 @@ const pricingPlans = [
 
 const Pricing = () => {
   return (
-    <section id="pricing" className="relative py-20">
+    <section id="pricing" className="relative py-10">
       {/* Soft background */}
       <div className="absolute inset-0 bg-white/20 backdrop-blur-sm" />
 

@@ -1,6 +1,8 @@
 import homebg from "../assets/homebg.png";
 
 const HomeHero = () => {
+  const typeOfMakeup: any[] = ["Bridal", "Party", "Editorial", "HD Makeup"];
+
   return (
     <section
       id="home"
@@ -12,7 +14,6 @@ const HomeHero = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl">
-        
         {/* Small Accent */}
         <p className="text-sm tracking-widest uppercase text-[#5D5D5D]/70 mb-6">
           Professional Makeup Artist
@@ -67,7 +68,11 @@ const HomeHero = () => {
               strokeWidth={2}
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 17L17 7M7 7h10v10"
+              />
             </svg>
           </button>
 
@@ -93,12 +98,20 @@ const HomeHero = () => {
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-14 flex flex-wrap justify-center gap-6 text-sm text-[#5D5D5D]/70">
-          <span>✨ Bridal</span>
-          <span>✨ Party</span>
-          <span>✨ Editorial</span>
-          <span>✨ HD Makeup</span>
+
+        <div className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-[#5D5D5D]/70">
+          {typeOfMakeup.map((item, index) => (
+            <span
+              key={index}
+              className="relative pl-4 cursor-pointer hover:text-gray-700 transition"
+            >
+              {/* <span className="absolute left-0 top-2 w-1 h-1 bg-[#5D5D5D]/50 rounded-full" /> */}
+              {item}
+            </span>
+          ))}
         </div>
+
+        <span></span>
       </div>
     </section>
   );

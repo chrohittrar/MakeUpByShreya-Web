@@ -41,8 +41,8 @@ const Testimonials = () => {
       <section id="testimonials" className="relative py-20 scroll-mt-20">
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           {/* Heading */}
-          <h2 className="text-3xl md:text-4xl font-accent text-gray-500 mb-10">
-            what my clients say
+          <h2 className="text-4xl md:text-5xl font-accent text-gray-500 mb-10">
+            What my clients say
           </h2>
 
           {/* Slider */}

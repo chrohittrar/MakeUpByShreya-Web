@@ -11,8 +11,8 @@ const AboutMe = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
           {/* Text Section (Left) */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-accent text-[#5D5D5D] mb-2">
-              about me
+            <h2 className="text-4xl md:text-5xl font-accent text-[#5D5D5D] mb-6">
+              About me
             </h2>
 
             <p className="text-[#5D5D5D] leading-relaxed mb-4">
@@ -27,18 +27,17 @@ const AboutMe = () => {
               that make you feel confident and radiant.
             </p>
 
-            <p className="text-[#5D5D5D] leading-relaxed">
+            <p className="text-[#5D5D5D] leading-relaxed mb-8">
               Every face is unique, and my goal is to bring out the best version
               of you for your special moments.
             </p>
           </div>
 
           {/* Image Section (Right) */}
-          {/* Image Section (Right) */}
           <div className="flex justify-center md:justify-end">
             <div className="relative">
               {/* Circular Image */}
-              <div className="w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden shadow-xl border border-white/40">
+              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-xl border border-white/40">
                 <img
                   src={aboutme}
                   alt="Makeup Artist Shreya"
@@ -46,8 +45,7 @@ const AboutMe = () => {
                 />
               </div>
 
-              {/* Subtle outer ring (optional luxury touch) */}
-              <div className="absolute -bottom-3 -right-3 w-64 h-64 md:w-72 md:h-72 rounded-full border border-white/30" />
+              <div className="absolute -bottom-3 -right-3 w-70 h-70 md:w-82 md:h-82 rounded-full border border-white/90" />
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import AboutMe from "./components/about-me";
 import BookAppointment from "./components/book-appointment";
+import FAQ from "./components/faq";
 import Footer from "./components/footer";
 import HomeHero from "./components/home";
 import Navbar from "./components/navbar";
@@ -23,6 +24,7 @@ const App = () => {
       <ProductsUsed />
       <Pricing />
       <Testimonials />
+      <FAQ />
       <BookAppointment />
 
       <Footer />
