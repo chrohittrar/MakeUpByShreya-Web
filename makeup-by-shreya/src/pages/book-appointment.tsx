@@ -159,13 +159,26 @@ const BookAppointment = () => {
   const errorText = "mt-1 text-sm text-rose-500 animate-fadeIn";
   const today = new Date().toISOString().split("T")[0];
 
+  const handleClear = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      date: "",
+      time: "",
+      occasion: "",
+      message: "",
+    });
+    setErrors({});
+  };
+
   return (
     <>
-      <section id="book-appointment" className="relative py-20 scroll-mt-20">
+      <section id="book-appointment" className="relative py-24 md:py-32">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-accent text-brandGray mb-3">
-              Book your appointment
+            <h2 className="text-6xl md:text-7xl font-accent font-semibold tracking-extreme text-primaryColor mb-3">
+              BOOK YOUR APPOINTMENT
             </h2>
             <p className="text-gray-400">
               Let’s create a look that feels uniquely you
@@ -284,21 +297,66 @@ const BookAppointment = () => {
             />
 
             {/* Loading Button */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="relative w-full h-12 overflow-hidden rounded-xl bg-black/80 text-white font-medium hover:bg-black transition"
-            >
-              {isSubmitting && (
-                <span
-                  className="absolute inset-y-0 left-0 bg-gray-600 transition-all duration-500"
-                  style={{ width: `${progress}%` }}
-                />
-              )}
-              <span className="relative z-10 flex justify-center">
-                {loadingText}
-              </span>
-            </button>
+            <div className="flex gap-3">
+              {/* SUBMIT – 80% */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="
+      relative
+      w-[80%] h-12
+      overflow-hidden
+      rounded-xl
+      bg-primaryColor
+      text-white
+      font-medium
+      hover:bg-primaryColor/80
+      transition
+    "
+              >
+                {isSubmitting && (
+                  <span
+                    className="absolute inset-y-0 left-0 bg-black/20 transition-all duration-500"
+                    style={{ width: `${progress}%` }}
+                  />
+                )}
+                <span className="relative z-10 flex justify-center">
+                  {loadingText}
+                </span>
+              </button>
+
+              {/* CLEAR – 20% */}
+              <button
+                type="button"
+                onClick={handleClear}
+                className="
+      w-[20%] h-12
+      flex items-center justify-center
+      rounded-xl
+      border border-gray-300
+      text-gray-500
+      hover:bg-gray-100
+      hover:text-gray-700
+      transition
+    "
+                title="Clear form"
+              >
+                {/* Clear Icon */}
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 6h18M9 6V4h6v2M8 6l1 14h6l1-14"
+                  />
+                </svg>
+              </button>
+            </div>
           </form>
         </div>
       </section>
@@ -319,7 +377,7 @@ const BookAppointment = () => {
             </p>
             <button
               onClick={() => setShowModal(false)}
-              className="w-full py-3 rounded-xl bg-black text-white hover:bg-black/80 transition"
+              className="w-full py-3 rounded-xl bg-primaryColor text-white hover:bg-black/80 transition"
             >
               Close
             </button>

@@ -51,7 +51,7 @@ const ProductsUsed = () => {
         
         {/* Centered Heading */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-accent text-brandGray mb-6">
+          <h2 className="text-4xl md:text-5xl font-accent text-primaryColor mb-6">
             The Products I Use
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
@@ -66,7 +66,7 @@ const ProductsUsed = () => {
             <div key={index} className="text-center md:text-left">
               
               {/* Accent */}
-              <p className="uppercase tracking-[0.35em] text-sm text-brandGray/50 mb-3">
+              <p className="uppercase tracking-[0.35em] text-sm text-primaryColor/50 mb-3">
                 {item.accent}
               </p>
 

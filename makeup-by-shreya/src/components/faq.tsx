@@ -40,7 +40,7 @@ const FAQ = () => {
         
         {/* Heading */}
         <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-accent text-brandGray mb-3">
+          <h2 className="text-3xl md:text-4xl font-accent text-primaryColor mb-3">
             Frequently Asked Questions
           </h2>
           <p className="text-gray-500">

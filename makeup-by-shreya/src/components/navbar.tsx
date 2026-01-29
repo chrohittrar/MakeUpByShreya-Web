@@ -1,8 +1,10 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 w-full z-50 h-16">
@@ -16,37 +18,66 @@ const Navbar = () => {
           src={logo}
           alt="MyApp Logo"
           className="h-10 w-auto object-contain cursor-pointer"
-          onClick={() => {
-            document
-              .getElementById("home")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
+          onClick={() => navigate("/")}
         />
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 text-zinc-700 font-medium">
-          <li className="cursor-pointer hover:text-black transition">
-            Portfolio
+        <ul className="hidden md:flex space-x-8 items-center">
+          <li>
+            <Link
+              to="/portfolio"
+              className="hover:text-primaryColor transition"
+            >
+              Portfolio
+            </Link>
           </li>
-          <li
-            className="cursor-pointer hover:text-black transition"
-            onClick={() => {
-              document
-                .getElementById("about-me")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            About Me
+
+          <li>
+            <Link to="/about" className="hover:text-primaryColor transition">
+              About
+            </Link>
           </li>
-          <li
-            className="cursor-pointer hover:text-black transition"
-            onClick={() => {
-              document
-                .getElementById("testimonials")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            From Clients
+
+          <li>
+            <Link
+              to="/book-appointment"
+              className="hover:text-primaryColor transition"
+            >
+              Appointments
+            </Link>
+          </li>
+
+          {/* CLASSES WITH ARROW */}
+          <li>
+            <Link
+              to="/classes"
+              className="
+        group flex items-center gap-1
+        text-primaryColor
+        font-medium
+        transition
+      "
+            >
+              Classes
+              <svg
+                className="
+          w-4 h-4
+          transition-transform duration-300 ease-out
+          group-hover:translate-x-1
+          group-hover:-translate-y-1
+        "
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7 17L17 7M7 7h10v10"
+                />
+              </svg>
+            </Link>
           </li>
         </ul>
 
@@ -77,27 +108,37 @@ const Navbar = () => {
           open ? "max-h-60" : "max-h-0"
         } bg-white/60 backdrop-blur-lg`}
       >
-        <ul className="flex flex-col items-center py-4 space-y-4 text-zinc-700 font-medium">
-          <li onClick={() => setOpen(false)}>Portfolio</li>
-          <li
-            className="cursor-pointer hover:text-black transition"
-            onClick={() => {
-              document
-                .getElementById("about-me")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            About Me
+        <ul className="flex flex-col items-center py-4 space-y-5 text-primaryColor font-medium">
+          <li onClick={() => setOpen(false)}>
+            <Link to="/portfolio">Portfolio</Link>
           </li>
-          <li
-            className="cursor-pointer hover:text-black transition"
-            onClick={() => {
-              document
-                .getElementById("testimonials")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            From Clients
+
+          <li onClick={() => setOpen(false)}>
+            <Link to="/about">About</Link>
+          </li>
+
+          <li onClick={() => setOpen(false)}>
+            <Link to="/book-appointment">Appointments</Link>
+          </li>
+
+          {/* CLASSES WITH ARROW */}
+          <li onClick={() => setOpen(false)}>
+            <Link to="/classes" className="flex items-center gap-2">
+              Classes
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7 17L17 7M7 7h10v10"
+                />
+              </svg>
+            </Link>
           </li>
         </ul>
       </div>

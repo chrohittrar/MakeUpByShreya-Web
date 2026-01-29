@@ -26,3 +26,7 @@ html, body {
   animation: fadeIn 0.25s ease-out;
 }
 
+.animate-fadeIn {
+  animation: fadeIn 0.35s ease-out;
+}
+

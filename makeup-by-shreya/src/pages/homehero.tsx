@@ -15,20 +15,20 @@ const HomeHero = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl">
         {/* Small Accent */}
-        <p className="text-sm tracking-widest uppercase text-[#5D5D5D]/70 mb-6">
+        <p className="text-sm tracking-widest font-sans uppercase text-brandGray/70 mb-6">
           Professional Makeup Artist
         </p>
 
         {/* Main Heading */}
-        <h1 className="text-4xl md:text-7xl font-accent text-[#5D5D5D] mb-6 leading-tight">
+        <h1 className="text-5xl md:text-9xl font-accent text-primaryColor mb-6 leading-tight">
           Make Up By Shreya
         </h1>
 
         {/* Divider */}
-        <div className="w-24 h-[1px] bg-[#5D5D5D]/40 mx-auto mb-6" />
+        <div className="w-24 h-[1px] bg-brandGray/40 mx-auto mb-6" />
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-[#5D5D5D]/80 mb-10 leading-relaxed">
+        <p className="text-lg md:text-xl text-brandGray/80 mb-10 leading-relaxed">
           Enhancing your natural beauty with
           <span className="block mt-1">
             luxury, elegance & timeless makeup artistry
@@ -44,12 +44,12 @@ const HomeHero = () => {
               px-8 py-3
               flex items-center justify-center gap-2
               text-white
-              bg-[#5D5D5D]
+              bg-primaryColor
               rounded-lg
               font-semibold
 
               transition-all duration-500 ease-out
-              hover:bg-black
+              hover:bg-[#9A7989]
               hover:shadow-xl
               hover:-translate-y-1
               active:scale-95
@@ -80,12 +80,12 @@ const HomeHero = () => {
           <button
             className="
               px-8 py-3
-              border border-[#5D5D5D]/40
+              border border-brandGray/40
               rounded-lg
-              text-[#5D5D5D]
+              text-brandGray
               font-medium
               transition
-              hover:bg-[#5D5D5D]/10
+              hover:bg-brandGray/10
             "
             onClick={() => {
               document
@@ -99,13 +99,13 @@ const HomeHero = () => {
 
         {/* Trust Indicators */}
 
-        <div className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-[#5D5D5D]/70">
+        <div className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-brandGray/70">
           {typeOfMakeup.map((item, index) => (
             <span
               key={index}
               className="relative pl-4 cursor-pointer hover:text-gray-700 transition"
             >
-              {/* <span className="absolute left-0 top-2 w-1 h-1 bg-[#5D5D5D]/50 rounded-full" /> */}
+              {/* <span className="absolute left-0 top-2 w-1 h-1 bg-brandGray/50 rounded-full" /> */}
               {item}
             </span>
           ))}

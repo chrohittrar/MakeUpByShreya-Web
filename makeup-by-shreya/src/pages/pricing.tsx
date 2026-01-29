@@ -46,7 +46,7 @@ const Pricing = () => {
         
         {/* Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-accent text-brandGray tracking-wide mb-3">
+          <h2 className="text-4xl md:text-5xl font-accent text-primaryColor tracking-wide mb-3">
             Pricing
           </h2>
           <p className="text-gray-500">

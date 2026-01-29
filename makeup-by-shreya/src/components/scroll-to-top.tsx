@@ -30,12 +30,12 @@ const ScrollToTop = () => {
 
         bg-white/60 backdrop-blur-lg
         border border-white/40
-        text-[#5D5D5D]
+        text-brandGray
 
         shadow-lg
         transition-all duration-500 ease-out
 
-        hover:bg-[#5D5D5D]
+        hover:bg-brandGray
         hover:text-white
         hover:-translate-y-1
 

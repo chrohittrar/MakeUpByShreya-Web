@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icongrayweb.png" />
-    <!-- Quicksand Font -->
+    <!-- Quicksand -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"
     />
 
@@ -22,10 +22,15 @@
           extend: {
             fontFamily: {
               sans: ["Quicksand", "sans-serif"],
-              accent: ["AmsterdamThree", "cursive"],
+              accent: ["Oswald", "sans-serif"],
             },
             colors: {
               brandGray: "#5D5D5D",
+              primaryColor: "#734A71",
+            },
+            letterSpacing: {
+              ultra: "-0.06em",
+              extreme: "-0.08em",
             },
           },
         },
@@ -34,7 +39,7 @@
 
     <title>Make Up By Shreya</title>
   </head>
-  <body>
+  <body class="font-sans tracking-ultra">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
