@@ -17,7 +17,7 @@ const Navbar = () => {
         <img
           src={logo}
           alt="MyApp Logo"
-          className="h-10 w-auto object-contain cursor-pointer"
+          className="h-10 w-auto object-contain cursor-pointer justify-self-center"
           onClick={() => navigate("/")}
         />
 

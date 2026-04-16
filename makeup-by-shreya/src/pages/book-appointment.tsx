@@ -174,7 +174,7 @@ const BookAppointment = () => {
 
   return (
     <>
-      <section id="book-appointment" className="relative py-24 md:py-32">
+      <section id="book-appointment" className="relative py-24 md:py-32 bg-gray-100/10" >
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="text-6xl md:text-7xl font-accent font-semibold tracking-extreme text-primaryColor mb-3">
@@ -185,7 +185,7 @@ const BookAppointment = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="rounded-2xl p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="rounded-2xl p-8 space-y-6  bg-gray-100/50 ">
             {/* Name */}
             <div>
               <input

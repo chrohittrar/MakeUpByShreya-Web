@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="backdrop-blur-lg bg-gray-100">
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-10">
@@ -22,9 +24,9 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li className="hover:text-black cursor-pointer">Portfolio</li>
-              <li className="hover:text-black cursor-pointer">About</li>
-              <li className="hover:text-black cursor-pointer">Appointment</li>
+              <li className="hover:text-black cursor-pointer" onClick={() => navigate('/portfolio')}>Portfolio</li>
+              <li className="hover:text-black cursor-pointer" onClick={() => navigate('/about')}>About</li>
+              <li className="hover:text-black cursor-pointer" onClick={() => navigate('/book-appointment')}>Appointment</li>
             </ul>
           </div>
 

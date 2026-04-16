@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import homebg from "../assets/homebg.png";
 
 const HomeHero = () => {
+  const navigate = useNavigate();
   const typeOfMakeup: any[] = ["Bridal", "Party", "Editorial", "HD Makeup"];
 
   return (
@@ -54,11 +56,7 @@ const HomeHero = () => {
               hover:-translate-y-1
               active:scale-95
             "
-            onClick={() => {
-              document
-                .getElementById("book-appointment")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() => navigate('/book-appointment')}
           >
             Book an Appointment
             <svg
@@ -87,11 +85,7 @@ const HomeHero = () => {
               transition
               hover:bg-brandGray/10
             "
-            onClick={() => {
-              document
-                .getElementById("portfolio")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() => navigate('/portfolio')}
           >
             View Portfolio
           </button>
