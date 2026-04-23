@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
+  const { pathname } = useLocation(); // 👈 important
 
+  /* ---------------- SCROLL BUTTON VISIBILITY ---------------- */
   useEffect(() => {
     const toggleVisibility = () => {
       setVisible(window.scrollY > 300);
@@ -12,6 +15,15 @@ const ScrollToTop = () => {
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
+  /* ---------------- AUTO SCROLL ON ROUTE CHANGE ---------------- */
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto", // 🔥 use "smooth" if you want animation
+    });
+  }, [pathname]);
+
+  /* ---------------- MANUAL CLICK ---------------- */
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -23,27 +35,27 @@ const ScrollToTop = () => {
     <button
       onClick={scrollToTop}
       className={`
-        fixed bottom-6 right-6 z-50
-        w-12 h-12
-        rounded-full
-        flex items-center justify-center
+    fixed right-6 z-50
+    bottom-20 md:bottom-6
 
-        bg-white/60 backdrop-blur-lg
-        border border-white/40
-        text-brandGray
+    w-12 h-12
+    rounded-full
+    flex items-center justify-center
 
-        shadow-lg
-        transition-all duration-500 ease-out
+    bg-white/60 backdrop-blur-lg
+    border border-white/40
+    text-brandGray
 
-        hover:bg-brandGray
-        hover:text-white
-        hover:-translate-y-1
+    shadow-lg
+    transition-all duration-500 ease-out
 
-        ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
-      `}
-      aria-label="Scroll to top"
+    hover:bg-brandGray
+    hover:text-white
+    hover:-translate-y-1
+
+    ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
+  `}
     >
-      {/* Up Arrow */}
       <svg
         className="w-5 h-5"
         fill="none"
@@ -51,11 +63,7 @@ const ScrollToTop = () => {
         strokeWidth={2}
         viewBox="0 0 24 24"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M5 15l7-7 7 7"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
       </svg>
     </button>
   );

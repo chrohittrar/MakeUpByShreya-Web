@@ -26,7 +26,6 @@ const BookAppointment = () => {
   const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Loading button states
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Book Appointment");
 
@@ -52,17 +51,12 @@ const BookAppointment = () => {
   const validate = () => {
     const newErrors: Partial<FormData> = {};
 
-    if (!formData.name.trim()) newErrors.name = "Please enter your full name";
-
-    if (!formData.email.trim())
-      newErrors.email = "Please enter your email address";
-
+    if (!formData.name.trim()) newErrors.name = "Enter your full name";
+    if (!formData.email.trim()) newErrors.email = "Enter your email";
     if (!formData.phone || formData.phone.length !== 10)
-      newErrors.phone = "Enter a valid 10-digit mobile number";
-
-    if (!formData.date) newErrors.date = "Please select a date";
-
-    if (!formData.occasion) newErrors.occasion = "Please select an occasion";
+      newErrors.phone = "Enter valid mobile number";
+    if (!formData.date) newErrors.date = "Select a date";
+    if (!formData.occasion) newErrors.occasion = "Select occasion";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -80,11 +74,10 @@ const BookAppointment = () => {
 
     const formattedPhone = `+91${formData.phone}`;
 
-    // Fake progress animation (UX polish)
     const steps = [
-      { value: 30, text: "✨ Final touches :)" },
-      { value: 60, text: "📩 Sending request :D" },
-      { value: 85, text: "💌 Almost done XD" },
+      { value: 30, text: "✨ Final touches" },
+      { value: 60, text: "📩 Sending request" },
+      { value: 85, text: "💌 Almost done" },
     ];
 
     let index = 0;
@@ -97,7 +90,6 @@ const BookAppointment = () => {
     }, 600);
 
     try {
-      // Email to YOU
       await emailjs.send(
         "service_tr6ui8b",
         "template_x8i6l49",
@@ -105,12 +97,11 @@ const BookAppointment = () => {
           ...formData,
           phone: formattedPhone,
           time: formData.time || "Not specified",
-          message: formData.message || "No additional message",
+          message: formData.message || "No message",
         },
         "rVMdZGNoP1slacwDZ"
       );
 
-      // Auto-reply to CLIENT
       await emailjs.send(
         "service_ba9c3xa",
         "template_9rk82ga",
@@ -133,6 +124,7 @@ const BookAppointment = () => {
         setIsSubmitting(false);
         setProgress(0);
         setLoadingText("Book Appointment");
+
         setFormData({
           name: "",
           email: "",
@@ -142,6 +134,7 @@ const BookAppointment = () => {
           occasion: "",
           message: "",
         });
+
         setErrors({});
       }, 700);
     } catch {
@@ -151,13 +144,6 @@ const BookAppointment = () => {
       setLoadingText("Book Appointment");
     }
   };
-
-  /* ---------------- UI ---------------- */
-
-  const inputBase =
-    "w-full px-4 py-3 rounded-lg outline-none bg-neutral-50 transition";
-  const errorText = "mt-1 text-sm text-rose-500 animate-fadeIn";
-  const today = new Date().toISOString().split("T")[0];
 
   const handleClear = () => {
     setFormData({
@@ -172,35 +158,49 @@ const BookAppointment = () => {
     setErrors({});
   };
 
+  /* ---------------- UI ---------------- */
+
+  const inputBase =
+    "w-full px-4 py-3 rounded-xl bg-white/70 border border-gray-200 outline-none transition focus:border-primaryColor focus:ring-2 focus:ring-primaryColor/10";
+
+  const errorText = "mt-1 text-sm text-rose-500";
+
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <>
-      <section id="book-appointment" className="relative py-24 md:py-32 bg-gray-100/10" >
+      <section className="py-32 bg-[#FBF6F2]">
         <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-6xl md:text-7xl font-accent font-semibold tracking-extreme text-primaryColor mb-3">
-              BOOK YOUR APPOINTMENT
+
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <h2 className="text-5xl md:text-7xl font-accent tracking-extreme text-primaryColor mb-3">
+              Book Appointment
             </h2>
             <p className="text-gray-400">
-              Let’s create a look that feels uniquely you
+              Let’s create something beautiful together
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="rounded-2xl p-8 space-y-6  bg-gray-100/50 ">
-            {/* Name */}
+          {/* FORM */}
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-3xl p-10 space-y-8 bg-white/60 backdrop-blur-xl"
+          >
+
+            {/* NAME */}
             <div>
               <input
                 name="name"
                 placeholder="Full Name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`${inputBase} ${
-                  errors.name ? "border border-rose-400" : ""
-                }`}
+                className={`${inputBase} ${errors.name ? "border-rose-400" : ""}`}
               />
               {errors.name && <p className={errorText}>{errors.name}</p>}
             </div>
 
-            {/* Email */}
+            {/* EMAIL */}
             <div>
               <input
                 name="email"
@@ -208,35 +208,31 @@ const BookAppointment = () => {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleChange}
-                className={`${inputBase} ${
-                  errors.email ? "border border-rose-400" : ""
-                }`}
+                className={`${inputBase} ${errors.email ? "border-rose-400" : ""}`}
               />
               {errors.email && <p className={errorText}>{errors.email}</p>}
             </div>
 
-            {/* Phone */}
+            <div className="border-t border-gray-200" />
+
+            {/* PHONE */}
             <div>
-              <div
-                className={`flex rounded-lg overflow-hidden ${
-                  errors.phone ? "border border-rose-400" : ""
-                }`}
-              >
+              <div className={`flex rounded-xl overflow-hidden ${errors.phone ? "border border-rose-400" : ""}`}>
                 <span className="px-4 py-3 bg-gray-100 text-gray-500">+91</span>
                 <input
                   name="phone"
-                  placeholder="Mobile Number"
                   value={formData.phone}
                   onChange={handleChange}
                   maxLength={10}
-                  className="w-full px-4 py-3 bg-neutral-50 outline-none"
+                  placeholder="Mobile Number"
+                  className="w-full px-4 py-3 bg-white/70 outline-none"
                 />
               </div>
               {errors.phone && <p className={errorText}>{errors.phone}</p>}
             </div>
 
-            {/* Date & Time */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* DATE + TIME */}
+            <div className="grid md:grid-cols-2 gap-5">
               <div>
                 <input
                   type="date"
@@ -244,9 +240,7 @@ const BookAppointment = () => {
                   min={today}
                   value={formData.date}
                   onChange={handleChange}
-                  className={`${inputBase} ${
-                    errors.date ? "border border-rose-400" : ""
-                  }`}
+                  className={`${inputBase} ${errors.date ? "border-rose-400" : ""}`}
                 />
                 {errors.date && <p className={errorText}>{errors.date}</p>}
               </div>
@@ -260,17 +254,15 @@ const BookAppointment = () => {
               />
             </div>
 
-            {/* Occasion */}
+            {/* OCCASION */}
             <div>
               <select
                 name="occasion"
                 value={formData.occasion}
                 onChange={handleChange}
-                className={`${inputBase} ${
-                  errors.occasion ? "border border-rose-400" : ""
-                }`}
+                className={`${inputBase} ${errors.occasion ? "border-rose-400" : ""}`}
               >
-                <option value="">Select Your Occasion</option>
+                <option value="">Select Occasion</option>
                 <option>Party Glam</option>
                 <option>Engagement Edit</option>
                 <option>Cocktail Couture</option>
@@ -281,12 +273,10 @@ const BookAppointment = () => {
                 <option>Reception Grandeur</option>
                 <option>Arté de Creative</option>
               </select>
-              {errors.occasion && (
-                <p className={errorText}>{errors.occasion}</p>
-              )}
+              {errors.occasion && <p className={errorText}>{errors.occasion}</p>}
             </div>
 
-            {/* Message */}
+            {/* MESSAGE */}
             <textarea
               name="message"
               rows={4}
@@ -296,88 +286,56 @@ const BookAppointment = () => {
               className={inputBase}
             />
 
-            {/* Loading Button */}
+            {/* BUTTONS */}
             <div className="flex gap-3">
-              {/* SUBMIT – 80% */}
+              
+              {/* SUBMIT */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="
-      relative
-      w-[80%] h-12
-      overflow-hidden
-      rounded-xl
-      bg-primaryColor
-      text-white
-      font-medium
-      hover:bg-primaryColor/80
-      transition
-    "
+                className="relative w-[80%] h-12 rounded-xl bg-primaryColor text-white font-semibold hover:shadow-lg transition"
               >
                 {isSubmitting && (
                   <span
-                    className="absolute inset-y-0 left-0 bg-black/20 transition-all duration-500"
+                    className="absolute inset-y-0 left-0 bg-black/20"
                     style={{ width: `${progress}%` }}
                   />
                 )}
-                <span className="relative z-10 flex justify-center">
+                <span className="relative z-10">
                   {loadingText}
                 </span>
               </button>
 
-              {/* CLEAR – 20% */}
+              {/* CLEAR */}
               <button
                 type="button"
                 onClick={handleClear}
-                className="
-      w-[20%] h-12
-      flex items-center justify-center
-      rounded-xl
-      border border-gray-300
-      text-gray-500
-      hover:bg-gray-100
-      hover:text-gray-700
-      transition
-    "
-                title="Clear form"
+                className="w-[20%] h-12 flex items-center justify-center rounded-xl border border-gray-200 text-gray-400 hover:text-primaryColor transition"
               >
-                {/* Clear Icon */}
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 6h18M9 6V4h6v2M8 6l1 14h6l1-14"
-                  />
-                </svg>
+                🧹
               </button>
             </div>
           </form>
         </div>
       </section>
 
-      {/* SUCCESS MODAL */}
+      {/* MODAL */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setShowModal(false)}
           />
-          <div className="relative bg-white rounded-2xl p-8 max-w-md w-full mx-6 shadow-2xl animate-fadeIn">
-            <h3 className="text-2xl font-regular text-brandGray mb-4 text-center">
+          <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-10 shadow-2xl">
+            <h3 className="text-xl text-center mb-4">
               Booking Request Sent 🎀
             </h3>
             <p className="text-gray-500 text-center mb-6">
-              A confirmation email has been sent to you.
+              Confirmation email sent successfully
             </p>
             <button
               onClick={() => setShowModal(false)}
-              className="w-full py-3 rounded-xl bg-primaryColor text-white hover:bg-black/80 transition"
+              className="w-full py-3 bg-primaryColor text-white rounded-xl"
             >
               Close
             </button>

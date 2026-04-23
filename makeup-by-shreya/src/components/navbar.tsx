@@ -1,146 +1,60 @@
-import { useState } from "react";
 import logo from "../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const isActive = (path: string) =>
+    pathname === path ? "text-primaryColor font-semibold" : "text-brandGray";
 
   return (
     <nav className="fixed top-0 w-full z-50 h-16">
-      {/* BLUR GRADIENT LAYER */}
-      <div className="absolute inset-0 bg-white/20 backdrop-blur-lg pointer-events-none" />
+      <div className="absolute inset-0 bg-white/20 backdrop-blur-lg border-b border-white/20" />
 
-      {/* CONTENT */}
-      <div className="relative max-w-7xl mx-auto px-2 md:px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
+      {/* Wrapper */}
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+
+        {/* -------- MOBILE (CENTERED LOGO) -------- */}
+        <div className="md:hidden absolute left-1/2 -translate-x-1/2">
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-10 cursor-pointer"
+            onClick={() => navigate("/")}
+          />
+        </div>
+
+        {/* -------- DESKTOP LOGO -------- */}
         <img
           src={logo}
-          alt="MyApp Logo"
-          className="h-10 w-auto object-contain cursor-pointer justify-self-center"
+          alt="Logo"
+          className="hidden md:block h-10 cursor-pointer"
           onClick={() => navigate("/")}
         />
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-8 items-center">
-          <li>
-            <Link
-              to="/portfolio"
-              className="hover:text-primaryColor transition"
-            >
-              Portfolio
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/about" className="hover:text-primaryColor transition">
-              About
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              to="/book-appointment"
-              className="hover:text-primaryColor transition"
-            >
-              Appointments
-            </Link>
-          </li>
-
-          {/* CLASSES WITH ARROW */}
-          <li>
-            <Link
-              to="/classes"
-              className="
-        group flex items-center gap-1
-        text-primaryColor
-        font-medium
-        transition
-      "
-            >
-              Classes
-              <svg
-                className="
-          w-4 h-4
-          transition-transform duration-300 ease-out
-          group-hover:translate-x-1
-          group-hover:-translate-y-1
-        "
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
+        {/* -------- DESKTOP MENU -------- */}
+        <ul className="hidden md:flex space-x-10 text-sm tracking-wide">
+          {[
+            { label: "PORTFOLIO", path: "/portfolio" },
+            { label: "ABOUT", path: "/about" },
+            { label: "APPOINTMENTS", path: "/book-appointment" },
+            { label: "CLASSES", path: "/classes" },
+          ].map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={`relative group transition ${isActive(item.path)}`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M7 17L17 7M7 7h10v10"
-                />
-              </svg>
-            </Link>
-          </li>
+                {item.label}
+                <span className="absolute left-0 -bottom-1 w-0 h-[1px] bg-primaryColor transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </li>
+          ))}
         </ul>
 
-        {/* Hamburger */}
-        <button
-          className="md:hidden text-zinc-700"
-          onClick={() => setOpen(!open)}
-        >
-          <svg
-            className="w-7 h-7"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            viewBox="0 0 24 24"
-          >
-            {open ? (
-              <path d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          open ? "max-h-60" : "max-h-0"
-        } bg-white/60 backdrop-blur-lg`}
-      >
-        <ul className="flex flex-col items-center py-4 space-y-5 text-primaryColor font-medium">
-          <li onClick={() => setOpen(false)}>
-            <Link to="/portfolio">Portfolio</Link>
-          </li>
-
-          <li onClick={() => setOpen(false)}>
-            <Link to="/about">About</Link>
-          </li>
-
-          <li onClick={() => setOpen(false)}>
-            <Link to="/book-appointment">Appointments</Link>
-          </li>
-
-          {/* CLASSES WITH ARROW */}
-          <li onClick={() => setOpen(false)}>
-            <Link to="/classes" className="flex items-center gap-2">
-              Classes
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M7 17L17 7M7 7h10v10"
-                />
-              </svg>
-            </Link>
-          </li>
-        </ul>
+        {/* -------- EMPTY RIGHT SPACE (FOR BALANCE) -------- */}
+        <div className="md:hidden w-10" />
       </div>
     </nav>
   );

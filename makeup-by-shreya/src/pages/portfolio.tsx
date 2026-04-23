@@ -1,4 +1,8 @@
 import { useState } from "react";
+import img1 from "../assets/img1.png";
+import img2 from "../assets/portfolio-photos/img2.png";
+import img3 from "../assets/portfolio-photos/img2.png";
+import img4 from "../assets/portfolio-photos/img2.png";
 
 type Category =
   | "All"
@@ -19,25 +23,25 @@ const categories: Category[] = [
 
 const portfolioItems = [
   {
-    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+    image: img2,
     title: "Bridal Glow",
     category: "Bridal",
     aspect: "tall",
   },
   {
-    image: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6",
+    image: img3,
     title: "Engagement Elegance",
     category: "Engagement",
     aspect: "square",
   },
   {
-    image: "https://images.unsplash.com/photo-1526045612212-70caf35c14df",
+    image: img1,
     title: "Party Glam",
     category: "Party",
-    aspect: "wide",
+    aspect: "square",
   },
   {
-    image: "https://images.unsplash.com/photo-1524255684952-d7185b509571",
+    image: img4,
     title: "Reception Royal",
     category: "Reception",
     aspect: "tall",
@@ -56,7 +60,6 @@ const portfolioItems = [
   },
 ];
 
-// Masonry ONLY from md+
 const aspectClasses: Record<string, string> = {
   tall: "md:row-span-2",
   square: "md:row-span-1",
@@ -75,35 +78,45 @@ const Portfolio = () => {
         );
 
   return (
-    <section id="portfolio" className="relative py-32">
+    <section id="portfolio" className="py-32 bg-[#FBF6F2]">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* Heading */}
-        <div className="text-center mb-20">
-          <h2 className="text-6xl md:text-8xl font-accent font-semibold tracking-extreme text-primaryColor mb-4">
-            PORTFOLIO
+        <div className="text-center mb-24">
+          <p className="text-xs tracking-widest text-gray-400 mb-3">
+            SELECTED WORK
+          </p>
+
+          <h2 className="text-6xl md:text-8xl font-accent tracking-extreme text-primaryColor mb-4">
+            Portfolio
           </h2>
+
           <p className="text-gray-500">
             A curated selection of my makeup artistry
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap justify-center gap-4 mb-24">
+        {/* Filters (EDITORIAL STYLE) */}
+        <div className="flex justify-center flex-wrap gap-8 mb-20 text-sm">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`
-                px-6 py-2 rounded-full text-sm transition
+                relative pb-1 transition
                 ${
                   activeCategory === cat
-                    ? "bg-primaryColor text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "text-primaryColor"
+                    : "text-gray-400 hover:text-primaryColor"
                 }
               `}
             >
               {cat}
+
+              {/* Underline */}
+              {activeCategory === cat && (
+                <span className="absolute left-0 bottom-0 w-full h-[1px] bg-primaryColor" />
+              )}
             </button>
           ))}
         </div>
@@ -111,12 +124,8 @@ const Portfolio = () => {
         {/* Grid */}
         <div
           className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            md:grid-cols-3
-            gap-6
-            md:auto-rows-[220px]
+            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3
+            gap-6 md:auto-rows-[220px]
           "
         >
           {filteredItems.map((item, index) => (
@@ -135,35 +144,16 @@ const Portfolio = () => {
                 className="
                   w-full h-full object-cover
                   transition-transform duration-700
-                  group-hover:scale-110
+                  group-hover:scale-[1.05]
                 "
               />
 
-              {/* Overlay */}
-              <div
-                className="
-                  absolute inset-0
-                  bg-gradient-to-t
-                  from-black/60 via-black/20 to-transparent
-                  opacity-0 group-hover:opacity-100
-                  transition-opacity duration-500
-                "
-              />
-
-              {/* Caption */}
-              <div
-                className="
-                  absolute bottom-0 left-0 right-0 p-5
-                  text-white
-                  translate-y-6 opacity-0
-                  group-hover:translate-y-0 group-hover:opacity-100
-                  transition-all duration-500
-                "
-              >
-                <h3 className="text-lg font-semibold">
+              {/* Soft Caption (BOTTOM, ALWAYS VISIBLE) */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/40 to-transparent text-white">
+                <h3 className="text-sm font-medium tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-sm text-white/80">
+                <p className="text-xs text-white/80">
                   {item.category}
                 </p>
               </div>

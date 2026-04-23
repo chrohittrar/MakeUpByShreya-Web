@@ -1,36 +1,45 @@
 import { useNavigate } from "react-router-dom";
-import homebg from "../assets/homebg.png";
+import homebg from "../assets/homebg.jpg";
 
 const HomeHero = () => {
+  const typeOfMakeup = ["Bridal", "Party", "Editorial", "HD Makeup"];
   const navigate = useNavigate();
-  const typeOfMakeup: any[] = ["Bridal", "Party", "Editorial", "HD Makeup"];
 
   return (
-    <section
-      id="home"
-      className="relative h-screen bg-center bg-cover flex items-center justify-center"
-      style={{ backgroundImage: `url(${homebg})` }}
-    >
-      {/* Gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/30 to-white/10" />
+    <section id="home" className="relative pt-16">
+      {/* FULL WIDTH HERO IMAGE */}
+      <div className="relative w-full h-[70vh] md:h-[85vh] overflow-hidden">
+        <img
+          src={homebg}
+          alt="Makeup Hero"
+          className="
+    w-full h-full
+    object-cover
+    object-[center_15%]
+  "
+        />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl">
+        {/* Soft overlay */}
+        <div className="absolute bottom-0 left-0 w-full h-28 md:h-36 bg-gradient-to-t from-white via-white/70 to-transparent" />
+      </div>
+
+      {/* CONTENT BELOW IMAGE */}
+      <div className="max-w-4xl mx-auto px-6 text-center py-16">
         {/* Small Accent */}
-        <p className="text-sm tracking-widest font-sans uppercase text-brandGray/70 mb-6">
+        <p className="text-sm tracking-widest uppercase text-[#5D5D5D]/70 mb-20">
           Professional Makeup Artist
         </p>
 
-        {/* Main Heading */}
-        <h1 className="text-5xl md:text-9xl font-accent text-primaryColor mb-6 leading-tight">
-          Make Up By Shreya
+        {/* Heading */}
+        <h1 className="text-5xl md:text-7xl font-cursive text-primaryColor mb-6 leading-loose tracking-tight">
+          Makeup by shreya
         </h1>
 
         {/* Divider */}
-        <div className="w-24 h-[1px] bg-brandGray/40 mx-auto mb-6" />
+        <div className="w-24 h-[1px] mx-auto mb-10" />
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-brandGray/80 mb-10 leading-relaxed">
+        <p className="text-lg md:text-xl text-[#5D5D5D]/80 mb-10 leading-relaxed">
           Enhancing your natural beauty with
           <span className="block mt-1">
             luxury, elegance & timeless makeup artistry
@@ -45,18 +54,14 @@ const HomeHero = () => {
               group
               px-8 py-3
               flex items-center justify-center gap-2
-              text-white
-              bg-primaryColor
-              rounded-lg
-              font-semibold
+              text-white bg-primaryColor
+              rounded-lg font-semibold
 
-              transition-all duration-500 ease-out
-              hover:bg-[#9A7989]
-              hover:shadow-xl
-              hover:-translate-y-1
+              transition-all duration-500
+              hover:bg-secondaryColor hover:-translate-y-1
               active:scale-95
             "
-            onClick={() => navigate('/book-appointment')}
+            onClick={() => navigate("/book-appointment")}
           >
             Book an Appointment
             <svg
@@ -78,34 +83,30 @@ const HomeHero = () => {
           <button
             className="
               px-8 py-3
-              border border-brandGray/40
+              border border-[#5D5D5D]/40
               rounded-lg
-              text-brandGray
+              text-[#5D5D5D]
               font-medium
               transition
-              hover:bg-brandGray/10
+              hover:bg-[#5D5D5D]/10
             "
-            onClick={() => navigate('/portfolio')}
+            onClick={() => navigate("/portfolio")}
           >
             View Portfolio
           </button>
         </div>
 
-        {/* Trust Indicators */}
-
-        <div className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-brandGray/70">
+        {/* Tags */}
+        <div className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-[#5D5D5D]/70">
           {typeOfMakeup.map((item, index) => (
             <span
               key={index}
-              className="relative pl-4 cursor-pointer hover:text-gray-700 transition"
+              className="hover:text-gray-700 transition cursor-pointer"
             >
-              {/* <span className="absolute left-0 top-2 w-1 h-1 bg-brandGray/50 rounded-full" /> */}
               {item}
             </span>
           ))}
         </div>
-
-        <span></span>
       </div>
     </section>
   );

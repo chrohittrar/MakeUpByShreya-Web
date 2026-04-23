@@ -27,57 +27,117 @@ const testimonials = [
 const Testimonials = () => {
   const [current, setCurrent] = useState(0);
 
-  // Auto slide
+  /* AUTO SLIDE */
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
+      nextSlide();
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [current]);
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrent(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
+  };
 
   return (
-    <>
-      <section id="testimonials" className="relative py-20 scroll-mt-20">
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          {/* Heading */}
-          <h2 className="text-4xl md:text-5xl font-accent text-primaryColor mb-10">
-            What my clients say
-          </h2>
+    <section id="testimonials" className="py-14">
+      <div className="max-w-5xl mx-auto px-6 text-center">
 
-          {/* Slider */}
-          <div className="bg-gray-200 backdrop-blur-lg rounded-2xl shadow-xl p-10 min-h-[220px] flex flex-col justify-center transition-all duration-700">
-            <p className="text-lg text-brandGray italic mb-6">
-              “ {testimonials[current].message} ”
+        {/* Heading */}
+        <h2 className="text-5xl font-accent text-primaryColor mb-16">
+          What Clients Say
+        </h2>
+
+        {/* CARD */}
+        <div className="relative">
+
+          {/* Main Card */}
+          <div
+            className="
+              relative
+              bg-white/70 backdrop-blur-xl
+              rounded-3xl
+              shadow-2xl
+              px-10 py-14
+              transition-all duration-700
+            "
+          >
+            {/* Big Quote Icon */}
+            <div className="text-6xl text-primaryColor/20 mb-6">
+              “
+            </div>
+
+            {/* Message */}
+            <p className="text-lg md:text-xl text-brandGray leading-relaxed mb-8 max-w-3xl mx-auto">
+              {testimonials[current].message}
             </p>
 
+            {/* Client */}
             <div>
-              <p className="font-semibold text-brandGray">
+              <p className="font-semibold text-brandGray text-lg">
                 {testimonials[current].name}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-400 tracking-wide">
                 {testimonials[current].occasion}
               </p>
             </div>
           </div>
 
-          {/* Dots */}
-          <div className="flex justify-center mt-6 space-x-3">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrent(index)}
-                className={`w-3 h-3 rounded-full transition ${
-                  current === index
-                    ? "bg-black"
-                    : "bg-gray-200 hover:bg-gray-400"
-                }`}
-              />
-            ))}
-          </div>
+          {/* LEFT BUTTON */}
+          <button
+            onClick={prevSlide}
+            className="
+              absolute left-[-20px] top-1/2 -translate-y-1/2
+              w-10 h-10 rounded-full
+              bg-white shadow-md
+              flex items-center justify-center
+              hover:scale-110 transition
+            "
+          >
+            ‹
+          </button>
+
+          {/* RIGHT BUTTON */}
+          <button
+            onClick={nextSlide}
+            className="
+              absolute right-[-20px] top-1/2 -translate-y-1/2
+              w-10 h-10 rounded-full
+              bg-white shadow-md
+              flex items-center justify-center
+              hover:scale-110 transition
+            "
+          >
+            ›
+          </button>
         </div>
-      </section>
-    </>
+
+        {/* DOTS */}
+        <div className="flex justify-center mt-10 gap-3">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrent(index)}
+              className={`
+                h-2 rounded-full transition-all duration-300
+                ${
+                  current === index
+                    ? "w-8 bg-primaryColor"
+                    : "w-2 bg-gray-300"
+                }
+              `}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

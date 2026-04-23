@@ -1,4 +1,5 @@
 
+import FAQ from "../components/faq";
 import Testimonials from "../components/testimonial";
 import HomeHero from "./homehero";
 
@@ -7,6 +8,7 @@ const Home = () => {
     <>
       <HomeHero />
       <Testimonials />
+      <FAQ />
     </>
   );
 };

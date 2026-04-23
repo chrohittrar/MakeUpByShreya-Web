@@ -9,6 +9,8 @@ import ScrollToTop from "./components/scroll-to-top";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import Classes from "./pages/classes";
+import Contact from "./pages/contact";
+import MobileDock from "./components/mobile-dock";
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
 
       {/* Header */}
       <Navbar />
+      <MobileDock />
 
       {/* Main content must grow */}
       <main className="flex-grow">
@@ -28,7 +31,7 @@ const App = () => {
           <Route path="/products" element={<ProductsUsed />} />
           <Route path="/book-appointment" element={<BookAppointment />} />
           <Route path="/classes" element={<Classes />} />
-
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
 
