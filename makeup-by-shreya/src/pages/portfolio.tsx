@@ -1,8 +1,16 @@
 import { useState } from "react";
-import img1 from "../assets/img1.png";
-import img2 from "../assets/portfolio-photos/img2.png";
-import img3 from "../assets/portfolio-photos/img2.png";
-import img4 from "../assets/portfolio-photos/img2.png";
+
+/* ---------------- AUTO IMPORT IMAGES ---------------- */
+// Make sure images are inside: /src/assets/portfolio-photos/
+// and preferably in .webp format
+
+const images = Object.values(
+  import.meta.glob("../assets/portfolio-photos/*.{png,jpg,jpeg,webp}", {
+    eager: true,
+  })
+).map((mod: any) => mod.default);
+
+/* ---------------- TYPES ---------------- */
 
 type Category =
   | "All"
@@ -21,50 +29,28 @@ const categories: Category[] = [
   "Editorial",
 ];
 
-const portfolioItems = [
-  {
-    image: img2,
-    title: "Bridal Glow",
-    category: "Bridal",
+/* ---------------- AUTO GENERATE ITEMS ---------------- */
+
+const portfolioItems = images.map((img, index) => {
+  const catList = categories.slice(1); // remove "All"
+
+  return {
+    image: img,
+    title: `Look ${index + 1}`,
+    category: catList[index % catList.length],
     aspect: "tall",
-  },
-  {
-    image: img3,
-    title: "Engagement Elegance",
-    category: "Engagement",
-    aspect: "square",
-  },
-  {
-    image: img1,
-    title: "Party Glam",
-    category: "Party",
-    aspect: "square",
-  },
-  {
-    image: img4,
-    title: "Reception Royal",
-    category: "Reception",
-    aspect: "tall",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2",
-    title: "Editorial Muse",
-    category: "Editorial",
-    aspect: "square",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
-    title: "Minimal Beauty",
-    category: "Editorial",
-    aspect: "wide",
-  },
-];
+  };
+});
+
+/* ---------------- GRID LAYOUT ---------------- */
 
 const aspectClasses: Record<string, string> = {
   tall: "md:row-span-2",
   square: "md:row-span-1",
   wide: "md:col-span-2 md:row-span-1",
 };
+
+/* ---------------- COMPONENT ---------------- */
 
 const Portfolio = () => {
   const [activeCategory, setActiveCategory] =
@@ -96,7 +82,7 @@ const Portfolio = () => {
           </p>
         </div>
 
-        {/* Filters (EDITORIAL STYLE) */}
+        {/* Filters */}
         <div className="flex justify-center flex-wrap gap-8 mb-20 text-sm">
           {categories.map((cat) => (
             <button
@@ -113,7 +99,6 @@ const Portfolio = () => {
             >
               {cat}
 
-              {/* Underline */}
               {activeCategory === cat && (
                 <span className="absolute left-0 bottom-0 w-full h-[1px] bg-primaryColor" />
               )}
@@ -139,8 +124,9 @@ const Portfolio = () => {
             >
               {/* Image */}
               <img
-                src={`${item.image}?auto=format&fit=crop&w=900&q=80`}
+                src={item.image}
                 alt={item.title}
+                loading="lazy"
                 className="
                   w-full h-full object-cover
                   transition-transform duration-700
@@ -148,7 +134,7 @@ const Portfolio = () => {
                 "
               />
 
-              {/* Soft Caption (BOTTOM, ALWAYS VISIBLE) */}
+              {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/40 to-transparent text-white">
                 <h3 className="text-sm font-medium tracking-wide">
                   {item.title}

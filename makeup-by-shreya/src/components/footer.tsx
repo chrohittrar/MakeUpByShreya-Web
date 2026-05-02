@@ -117,7 +117,7 @@ const Footer = () => {
           <p className="text-xs text-gray-400">
             Designed & Developed by{" "}
             <a
-              href="https://69e990e6b4de5ca2ad64ac55--sevendecoder.netlify.app/"
+              href="https://sevendecoder.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primaryColor hover:underline transition"

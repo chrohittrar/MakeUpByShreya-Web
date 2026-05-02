@@ -11,8 +11,20 @@ import Home from "./pages/home";
 import Classes from "./pages/classes";
 import Contact from "./pages/contact";
 import MobileDock from "./components/mobile-dock";
+import { useEffect, useState } from "react";
+import Loader from "./components/loader";
 
 const App = () => {
+
+  const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const timer = setTimeout(() => setLoading(false), 1500);
+  return () => clearTimeout(timer);
+}, []);
+
+if (loading) return <Loader />;
+
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
