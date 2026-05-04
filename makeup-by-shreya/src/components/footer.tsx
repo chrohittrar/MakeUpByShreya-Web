@@ -122,7 +122,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="text-primaryColor hover:underline transition"
             >
-              7DECODER 🎧
+              Sevendecoder 🎧
             </a>
           </p>
 

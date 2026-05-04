@@ -1,14 +1,11 @@
 import { useState } from "react";
 
-/* ---------------- AUTO IMPORT IMAGES ---------------- */
-// Make sure images are inside: /src/assets/portfolio-photos/
-// and preferably in .webp format
+/* ---------------- IMPORT IMAGES WITH PATH ---------------- */
 
-const images = Object.values(
-  import.meta.glob("../assets/portfolio-photos/*.{png,jpg,jpeg,webp}", {
-    eager: true,
-  })
-).map((mod: any) => mod.default);
+const modules = import.meta.glob(
+  "../assets/portfolio-photos/*.{png,jpg,jpeg,webp}",
+  { eager: true },
+);
 
 /* ---------------- TYPES ---------------- */
 
@@ -16,31 +13,50 @@ type Category =
   | "All"
   | "Bridal"
   | "Engagement"
+  | "Mehandi"
   | "Party"
   | "Reception"
-  | "Editorial";
+  | "Editorial"
+  | "Cocktail"
+  | "Haldi";
 
 const categories: Category[] = [
   "All",
   "Bridal",
   "Engagement",
+  "Mehandi",
   "Party",
   "Reception",
   "Editorial",
+  "Cocktail",
+  "Haldi",
 ];
 
-/* ---------------- AUTO GENERATE ITEMS ---------------- */
+/* ---------------- CATEGORY DETECTOR ---------------- */
 
-const portfolioItems = images.map((img, index) => {
-  const catList = categories.slice(1); // remove "All"
+const getCategoryFromPath = (path: string): Category => {
+  const name = path.toLowerCase();
 
-  return {
-    image: img,
-    title: `Look ${index + 1}`,
-    category: catList[index % catList.length],
-    aspect: "tall",
-  };
-});
+  if (name.includes("bridal")) return "Bridal";
+  if (name.includes("engagement")) return "Engagement";
+  if (name.includes("party")) return "Party";
+  if (name.includes("reception")) return "Reception";
+  if (name.includes("haldi")) return "Haldi";
+  if (name.includes("mehandi")) return "Mehandi";
+  if (name.includes("editorial")) return "Editorial";
+  if (name.includes("cocktail")) return "Cocktail";
+
+  return "Party"; // fallback
+};
+
+/* ---------------- CREATE PORTFOLIO ITEMS ---------------- */
+
+const portfolioItems = Object.entries(modules).map(([path, mod]: any) => ({
+  image: mod.default,
+  title: getCategoryFromPath(path),
+  category: getCategoryFromPath(path),
+  aspect: "tall",
+}));
 
 /* ---------------- GRID LAYOUT ---------------- */
 
@@ -53,20 +69,16 @@ const aspectClasses: Record<string, string> = {
 /* ---------------- COMPONENT ---------------- */
 
 const Portfolio = () => {
-  const [activeCategory, setActiveCategory] =
-    useState<Category>("All");
+  const [activeCategory, setActiveCategory] = useState<Category>("All");
 
   const filteredItems =
     activeCategory === "All"
       ? portfolioItems
-      : portfolioItems.filter(
-          (item) => item.category === activeCategory
-        );
+      : portfolioItems.filter((item) => item.category === activeCategory);
 
   return (
     <section id="portfolio" className="py-32 bg-[#FBF6F2]">
       <div className="max-w-7xl mx-auto px-6">
-
         {/* Heading */}
         <div className="text-center mb-24">
           <p className="text-xs tracking-widest text-gray-400 mb-3">
@@ -98,7 +110,6 @@ const Portfolio = () => {
               `}
             >
               {cat}
-
               {activeCategory === cat && (
                 <span className="absolute left-0 bottom-0 w-full h-[1px] bg-primaryColor" />
               )}
@@ -107,12 +118,7 @@ const Portfolio = () => {
         </div>
 
         {/* Grid */}
-        <div
-          className="
-            grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3
-            gap-6 md:auto-rows-[220px]
-          "
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:auto-rows-[220px]">
           {filteredItems.map((item, index) => (
             <div
               key={index}
@@ -122,31 +128,24 @@ const Portfolio = () => {
                 ${aspectClasses[item.aspect]}
               `}
             >
-              {/* Image */}
               <img
                 src={item.image}
                 alt={item.title}
                 loading="lazy"
-                className="
-                  w-full h-full object-cover
-                  transition-transform duration-700
-                  group-hover:scale-[1.05]
-                "
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
               />
 
-              {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/40 to-transparent text-white">
                 <h3 className="text-sm font-medium tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-xs text-white/80">
+                {/* <p className="text-xs text-white/80">
                   {item.category}
-                </p>
+                </p> */}
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
