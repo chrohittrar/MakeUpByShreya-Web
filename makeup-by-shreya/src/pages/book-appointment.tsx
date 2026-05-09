@@ -27,67 +27,96 @@ const BookAppointment = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [progress, setProgress] = useState(0);
-  const [loadingText, setLoadingText] = useState("Book Appointment");
+  const [loadingText, setLoadingText] =
+    useState("Reserve Your Session");
 
-  /* ---------------- HANDLERS ---------------- */
+  /* ================= INPUT HANDLER ================= */
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
 
     if (name === "phone") {
-      setFormData({ ...formData, phone: value.replace(/\D/g, "") });
+      setFormData({
+        ...formData,
+        phone: value.replace(/\D/g, ""),
+      });
+
       return;
     }
 
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  /* ---------------- VALIDATION ---------------- */
+  /* ================= VALIDATION ================= */
 
   const validate = () => {
     const newErrors: Partial<FormData> = {};
 
-    if (!formData.name.trim()) newErrors.name = "Enter your full name";
-    if (!formData.email.trim()) newErrors.email = "Enter your email";
+    if (!formData.name.trim())
+      newErrors.name = "Please enter your name";
+
+    if (!formData.email.trim())
+      newErrors.email = "Please enter your email";
+
     if (!formData.phone || formData.phone.length !== 10)
-      newErrors.phone = "Enter valid mobile number";
-    if (!formData.date) newErrors.date = "Select a date";
-    if (!formData.occasion) newErrors.occasion = "Select occasion";
+      newErrors.phone = "Please enter a valid number";
+
+    if (!formData.date)
+      newErrors.date = "Please select a date";
+
+    if (!formData.occasion)
+      newErrors.occasion = "Please select an occasion";
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  /* ---------------- SUBMIT ---------------- */
+  /* ================= SUBMIT ================= */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!validate()) return;
 
     setIsSubmitting(true);
+
     setProgress(10);
-    setLoadingText("💄 Preparing your look...");
+    setLoadingText("Preparing your booking ✨");
 
     const formattedPhone = `+91${formData.phone}`;
 
     const steps = [
-      { value: 30, text: "✨ Final touches" },
-      { value: 60, text: "📩 Sending request" },
-      { value: 85, text: "💌 Almost done" },
+      {
+        value: 35,
+        text: "Finalizing your request 💄",
+      },
+      {
+        value: 70,
+        text: "Sending details 💌",
+      },
+      {
+        value: 90,
+        text: "Almost done ✨",
+      },
     ];
 
     let index = 0;
+
     const interval = setInterval(() => {
       if (index < steps.length) {
         setProgress(steps[index].value);
         setLoadingText(steps[index].text);
         index++;
       }
-    }, 600);
+    }, 700);
 
     try {
       await emailjs.send(
@@ -99,7 +128,7 @@ const BookAppointment = () => {
           time: formData.time || "Not specified",
           message: formData.message || "No message",
         },
-        "rVMdZGNoP1slacwDZ"
+        "rVMdZGNoP1slacwDZ",
       );
 
       await emailjs.send(
@@ -112,18 +141,22 @@ const BookAppointment = () => {
           time: formData.time || "To be discussed",
           occasion: formData.occasion,
         },
-        "rVMdZGNoP1slacwDZ"
+        "rVMdZGNoP1slacwDZ",
       );
 
       clearInterval(interval);
+
       setProgress(100);
-      setLoadingText("Request sent 💅");
+      setLoadingText("Request Sent 💅");
 
       setTimeout(() => {
         setShowModal(true);
+
         setIsSubmitting(false);
+
         setProgress(0);
-        setLoadingText("Book Appointment");
+
+        setLoadingText("Reserve Your Session");
 
         setFormData({
           name: "",
@@ -136,14 +169,19 @@ const BookAppointment = () => {
         });
 
         setErrors({});
-      }, 700);
+      }, 900);
     } catch {
       clearInterval(interval);
+
       setIsSubmitting(false);
+
       setProgress(0);
-      setLoadingText("Book Appointment");
+
+      setLoadingText("Reserve Your Session");
     }
   };
+
+  /* ================= CLEAR ================= */
 
   const handleClear = () => {
     setFormData({
@@ -155,187 +193,593 @@ const BookAppointment = () => {
       occasion: "",
       message: "",
     });
+
     setErrors({});
   };
 
-  /* ---------------- UI ---------------- */
+  /* ================= STYLES ================= */
 
-  const inputBase =
-    "w-full px-4 py-3 rounded-xl bg-white/70 border border-gray-200 outline-none transition focus:border-primaryColor focus:ring-2 focus:ring-primaryColor/10";
+  const inputBase = `
+    w-full
 
-  const errorText = "mt-1 text-sm text-rose-500";
+    px-5 py-4
+
+    bg-white/80
+    backdrop-blur-xl
+
+    border border-black/5
+
+    text-gray-700
+
+    outline-none
+
+    placeholder:text-gray-300
+
+    transition-all duration-300
+
+    focus:border-primaryColor/30
+    focus:ring-4 focus:ring-primaryColor/5
+  `;
+
+  const errorText = `
+    mt-2
+    text-sm
+    text-rose-500
+  `;
 
   const today = new Date().toISOString().split("T")[0];
 
   return (
     <>
-      <section className="py-32 bg-[#FBF6F2]">
-        <div className="max-w-3xl mx-auto px-6">
+      <section
+        className="
+          relative
+          overflow-hidden
 
-          {/* Heading */}
-          <div className="text-center mb-14">
-            <h2 className="text-5xl md:text-7xl font-accent tracking-extreme text-primaryColor mb-3">
-              Book Appointment
+          py-24 md:py-32
+
+          bg-[#FBF6F2]
+        "
+      >
+        {/* GLOW */}
+        <div
+          className="
+            absolute
+            top-10 left-1/2
+            -translate-x-1/2
+
+            w-[600px]
+            h-[600px]
+
+            rounded-full
+
+            bg-primaryColor/5
+
+            blur-3xl
+          "
+        />
+
+        <div className="relative max-w-6xl mx-auto px-6">
+
+          {/* ================= HEADING ================= */}
+          <div className="text-center mb-20">
+            <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-4">
+              MAKE A BOOKING
+            </p>
+
+            <h2
+              className="
+                text-4xl
+                sm:text-5xl
+                md:text-7xl
+uppercase
+                font-accent
+                text-primaryColor
+
+                tracking-tighter
+
+                mb-5
+              "
+            >
+              Reserve Your
+              <span className="block">
+                Beauty Session
+              </span>
             </h2>
-            <p className="text-gray-400">
-              Let’s create something beautiful together
+
+            <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Let’s create a timeless look tailored beautifully
+              for your special occasion.
             </p>
           </div>
 
-          {/* FORM */}
-          <form
-            onSubmit={handleSubmit}
-            className="rounded-3xl p-10 space-y-8 bg-white/60 backdrop-blur-xl"
+          {/* ================= MAIN CARD ================= */}
+          <div
+            className="
+              grid lg:grid-cols-[0.42fr_0.58fr]
+
+              overflow-hidden
+
+              bg-white/60
+              backdrop-blur-2xl
+
+              border border-white/40
+
+              shadow-[0_20px_60px_rgba(0,0,0,0.05)]
+            "
           >
+            {/* ================= LEFT PANEL ================= */}
+            <div
+              className="
+                relative
 
-            {/* NAME */}
-            <div>
-              <input
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={handleChange}
-                className={`${inputBase} ${errors.name ? "border-rose-400" : ""}`}
+                bg-primaryColor
+
+                text-white
+
+                p-10 md:p-14
+              "
+            >
+              {/* GLOW */}
+              <div
+                className="
+                  absolute
+                  top-0 right-0
+
+                  w-[250px]
+                  h-[250px]
+
+                  rounded-full
+
+                  bg-white/10
+
+                  blur-3xl
+                "
               />
-              {errors.name && <p className={errorText}>{errors.name}</p>}
-            </div>
 
-            {/* EMAIL */}
-            <div>
-              <input
-                name="email"
-                type="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                className={`${inputBase} ${errors.email ? "border-rose-400" : ""}`}
-              />
-              {errors.email && <p className={errorText}>{errors.email}</p>}
-            </div>
+              <div className="relative z-10">
 
-            <div className="border-t border-gray-200" />
+                <p className="text-[11px] tracking-[0.35em] uppercase text-white/60 mb-6">
+                  BEAUTY EXPERIENCE
+                </p>
 
-            {/* PHONE */}
-            <div>
-              <div className={`flex rounded-xl overflow-hidden ${errors.phone ? "border border-rose-400" : ""}`}>
-                <span className="px-4 py-3 bg-gray-100 text-gray-500">+91</span>
-                <input
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  maxLength={10}
-                  placeholder="Mobile Number"
-                  className="w-full px-4 py-3 bg-white/70 outline-none"
-                />
+                <h3
+                  className="
+                    text-4xl
+                    md:text-5xl
+
+                    font-accent
+
+                    leading-tight
+
+                    mb-8
+                  "
+                >
+                  Let’s create
+                  <span className="block">
+                    your dream look.
+                  </span>
+                </h3>
+
+                <p className="text-white/80 leading-relaxed mb-12">
+                  Bridal glam, editorial artistry, elegant party looks,
+                  and timeless makeup tailored beautifully for you.
+                </p>
+
+                {/* FEATURES */}
+                <div className="space-y-5 text-sm">
+
+                  {[
+                    "Luxury skin-focused makeup",
+                    "Personalized beauty consultation",
+                    "Long-lasting premium products",
+                    "Bridal & occasion artistry",
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3"
+                    >
+                      <div
+                        className="
+                          w-2 h-2
+
+                          rounded-full
+
+                          bg-white
+                        "
+                      />
+
+                      <p className="text-white/80">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              {errors.phone && <p className={errorText}>{errors.phone}</p>}
             </div>
 
-            {/* DATE + TIME */}
-            <div className="grid md:grid-cols-2 gap-5">
+            {/* ================= FORM ================= */}
+            <form
+              onSubmit={handleSubmit}
+              className="
+                p-8 md:p-12
+
+                space-y-7
+              "
+            >
+              {/* NAME */}
               <div>
+                <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                  Full Name
+                </label>
+
                 <input
-                  type="date"
-                  name="date"
-                  min={today}
-                  value={formData.date}
+                  name="name"
+                  placeholder="Your full name"
+                  value={formData.name}
                   onChange={handleChange}
-                  className={`${inputBase} ${errors.date ? "border-rose-400" : ""}`}
+                  className={`${inputBase} ${
+                    errors.name
+                      ? "border-rose-400"
+                      : ""
+                  }`}
                 />
-                {errors.date && <p className={errorText}>{errors.date}</p>}
+
+                {errors.name && (
+                  <p className={errorText}>
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
-              <input
-                type="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className={inputBase}
-              />
-            </div>
+              {/* EMAIL */}
+              <div>
+                <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                  Email Address
+                </label>
 
-            {/* OCCASION */}
-            <div>
-              <select
-                name="occasion"
-                value={formData.occasion}
-                onChange={handleChange}
-                className={`${inputBase} ${errors.occasion ? "border-rose-400" : ""}`}
-              >
-                <option value="">Select Occasion</option>
-                <option>Party Glam</option>
-                <option>Engagement Edit</option>
-                <option>Cocktail Couture</option>
-                <option>Roka Edit</option>
-                <option>Haldi Lumière</option>
-                <option>Mehndi Reverie</option>
-                <option>The Bridal Signature</option>
-                <option>Reception Grandeur</option>
-                <option>Arté de Creative</option>
-              </select>
-              {errors.occasion && <p className={errorText}>{errors.occasion}</p>}
-            </div>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`${inputBase} ${
+                    errors.email
+                      ? "border-rose-400"
+                      : ""
+                  }`}
+                />
 
-            {/* MESSAGE */}
-            <textarea
-              name="message"
-              rows={4}
-              placeholder="Tell me about your event (optional)"
-              value={formData.message}
-              onChange={handleChange}
-              className={inputBase}
-            />
-
-            {/* BUTTONS */}
-            <div className="flex gap-3">
-              
-              {/* SUBMIT */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="relative w-[80%] h-12 rounded-xl bg-primaryColor text-white font-semibold hover:shadow-lg transition"
-              >
-                {isSubmitting && (
-                  <span
-                    className="absolute inset-y-0 left-0 bg-black/20"
-                    style={{ width: `${progress}%` }}
-                  />
+                {errors.email && (
+                  <p className={errorText}>
+                    {errors.email}
+                  </p>
                 )}
-                <span className="relative z-10">
-                  {loadingText}
-                </span>
-              </button>
+              </div>
 
-              {/* CLEAR */}
-              <button
-                type="button"
-                onClick={handleClear}
-                className="w-[20%] h-12 flex items-center justify-center rounded-xl border border-gray-200 text-gray-400 hover:text-primaryColor transition"
-              >
-                🧹
-              </button>
-            </div>
-          </form>
+              {/* PHONE */}
+              <div>
+                <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                  Mobile Number
+                </label>
+
+                <div
+                  className={`
+                    flex overflow-hidden
+
+                    bg-white/80
+
+                    border
+
+                    ${
+                      errors.phone
+                        ? "border-rose-400"
+                        : "border-black/5"
+                    }
+                  `}
+                >
+                  <span
+                    className="
+                      px-5
+
+                      flex items-center
+
+                      text-gray-400
+
+                      border-r border-black/5
+                    "
+                  >
+                    +91
+                  </span>
+
+                  <input
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    maxLength={10}
+                    placeholder="9876543210"
+                    className="
+                      w-full
+
+                      px-5 py-4
+
+                      bg-transparent
+
+                      outline-none
+                    "
+                  />
+                </div>
+
+                {errors.phone && (
+                  <p className={errorText}>
+                    {errors.phone}
+                  </p>
+                )}
+              </div>
+
+              {/* DATE + TIME */}
+              <div className="grid md:grid-cols-2 gap-5">
+
+                {/* DATE */}
+                <div>
+                  <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                    Preferred Date
+                  </label>
+
+                  <input
+                    type="date"
+                    name="date"
+                    min={today}
+                    value={formData.date}
+                    onChange={handleChange}
+                    className={`${inputBase} ${
+                      errors.date
+                        ? "border-rose-400"
+                        : ""
+                    }`}
+                  />
+
+                  {errors.date && (
+                    <p className={errorText}>
+                      {errors.date}
+                    </p>
+                  )}
+                </div>
+
+                {/* TIME */}
+                <div>
+                  <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                    Preferred Time
+                  </label>
+
+                  <input
+                    type="time"
+                    name="time"
+                    value={formData.time}
+                    onChange={handleChange}
+                    className={inputBase}
+                  />
+                </div>
+              </div>
+
+              {/* OCCASION */}
+              <div>
+                <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                  Occasion
+                </label>
+
+                <select
+                  name="occasion"
+                  value={formData.occasion}
+                  onChange={handleChange}
+                  className={`${inputBase} ${
+                    errors.occasion
+                      ? "border-rose-400"
+                      : ""
+                  }`}
+                >
+                  <option value="">
+                    Select Occasion
+                  </option>
+
+                  <option>Party Glam</option>
+                  <option>Engagement Edit</option>
+                  <option>Cocktail Couture</option>
+                  <option>Roka Edit</option>
+                  <option>Haldi Lumière</option>
+                  <option>Mehndi Reverie</option>
+                  <option>The Bridal Signature</option>
+                  <option>Reception Grandeur</option>
+                  <option>Arté de Creative</option>
+                </select>
+
+                {errors.occasion && (
+                  <p className={errorText}>
+                    {errors.occasion}
+                  </p>
+                )}
+              </div>
+
+              {/* MESSAGE */}
+              <div>
+                <label className="text-xs tracking-[0.25em] uppercase text-gray-400 block mb-3">
+                  Additional Notes
+                </label>
+
+                <textarea
+                  name="message"
+                  rows={4}
+                  placeholder="Tell me about your event..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  className={inputBase}
+                />
+              </div>
+
+              {/* BUTTONS */}
+              <div className="flex gap-4 pt-2">
+
+                {/* SUBMIT */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="
+                    relative
+
+                    overflow-hidden
+
+                    w-[85%]
+                    h-14
+
+                    bg-primaryColor
+                    text-white
+
+                    transition-all duration-500
+
+                    hover:-translate-y-1
+                    hover:shadow-[0_20px_40px_rgba(115,74,113,0.25)]
+                  "
+                >
+                  {/* PROGRESS */}
+                  {isSubmitting && (
+                    <span
+                      className="
+                        absolute
+                        inset-y-0 left-0
+
+                        bg-black/20
+
+                        transition-all duration-500
+                      "
+                      style={{
+                        width: `${progress}%`,
+                      }}
+                    />
+                  )}
+
+                  <span className="relative z-10">
+                    {loadingText}
+                  </span>
+                </button>
+
+                {/* CLEAR */}
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  className="
+                    w-[15%]
+                    h-14
+
+                    border border-black/5
+
+                    bg-white
+
+                    text-xl
+
+                    hover:bg-[#FBF6F2]
+
+                    transition-all duration-300
+                  "
+                >
+                  ✦
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* ================= MODAL ================= */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div
+          className="
+            fixed inset-0 z-[9999]
+
+            flex items-center justify-center
+
+            px-6
+          "
+        >
+          {/* BACKDROP */}
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="
+              absolute inset-0
+
+              bg-black/40
+              backdrop-blur-sm
+            "
             onClick={() => setShowModal(false)}
           />
-          <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-10 shadow-2xl">
-            <h3 className="text-xl text-center mb-4">
-              Booking Request Sent 🎀
+
+          {/* MODAL */}
+          <div
+            className="
+              relative
+
+              w-full max-w-md
+
+              bg-white/80
+              backdrop-blur-2xl
+
+              p-10
+
+              shadow-2xl
+
+              text-center
+            "
+          >
+            {/* ICON */}
+            <div
+              className="
+                w-16 h-16
+
+                mx-auto mb-6
+
+                rounded-full
+
+                bg-primaryColor/10
+
+                flex items-center justify-center
+
+                text-3xl
+              "
+            >
+              ✨
+            </div>
+
+            <h3
+              className="
+                text-3xl
+
+                font-accent
+                text-primaryColor
+
+                mb-4
+              "
+            >
+              Booking Sent
             </h3>
-            <p className="text-gray-500 text-center mb-6">
-              Confirmation email sent successfully
+
+            <p className="text-gray-500 leading-relaxed mb-8">
+              Your appointment request has been submitted successfully.
+              A confirmation email has been sent to you.
             </p>
+
             <button
               onClick={() => setShowModal(false)}
-              className="w-full py-3 bg-primaryColor text-white rounded-xl"
+              className="
+                w-full
+
+                py-4
+
+                bg-primaryColor
+                text-white
+
+                hover:opacity-90
+
+                transition-all duration-300
+              "
             >
               Close
             </button>

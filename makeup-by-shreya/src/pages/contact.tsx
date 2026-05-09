@@ -7,169 +7,520 @@ const Contact = () => {
     message: "",
   });
 
-  const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <section className="bg-[#FBF6F2] py-28">
-      <div className="max-w-6xl mx-auto px-6">
+    <section
+      className="
+        relative
+        overflow-hidden
 
-        {/* HEADING */}
+        bg-[#FBF6F2]
+
+        py-24 md:py-32
+      "
+    >
+      {/* SOFT BACKGROUND GLOW */}
+      <div
+        className="
+          absolute
+          top-20 left-1/2
+          -translate-x-1/2
+
+          w-[500px]
+          h-[500px]
+
+          rounded-full
+
+          bg-primaryColor/5
+
+          blur-3xl
+        "
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6">
+
+        {/* ================= HEADING ================= */}
         <div className="text-center mb-24">
-          <p className="text-xs tracking-widest text-gray-400 mb-3">
+          <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-4">
             GET IN TOUCH
           </p>
 
-          <h2 className="text-5xl md:text-7xl font-accent text-primaryColor mb-4">
+          <h2
+            className="
+              text-4xl
+              sm:text-5xl
+              md:text-7xl
+
+              font-accent
+              text-primaryColor
+              uppercase
+              tracking-tight
+
+              mb-5
+            "
+          >
             Contact Me
           </h2>
 
-          <p className="text-gray-500 max-w-xl mx-auto">
-            For bookings, collaborations, or inquiries — I’d love to hear from you.
+          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            For bookings, collaborations, bridal inquiries, or classes —
+            I’d love to connect with you.
           </p>
         </div>
 
-        {/* MAIN GRID */}
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        {/* ================= MAIN GRID ================= */}
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
 
-          {/* LEFT SIDE */}
-          <div className="space-y-10">
+          {/* ================= LEFT PANEL ================= */}
+          <div
+            className="
+              relative
 
-            <div>
-              <h3 className="text-2xl font-accent text-primaryColor mb-4">
-                Let’s Connect
-              </h3>
+              bg-white/70
+              backdrop-blur-xl
 
-              <p className="text-gray-600 leading-relaxed">
-                Whether you’re planning your big day or looking to learn makeup professionally,
-                feel free to reach out. I’ll get back to you as soon as possible.
-              </p>
+              border border-white/40
+
+              shadow-[0_10px_40px_rgba(0,0,0,0.04)]
+
+              p-8 md:p-10
+            "
+          >
+            {/* SMALL LABEL */}
+            <p className="text-[11px] tracking-[0.3em] uppercase text-gray-400 mb-5">
+              LET’S CONNECT
+            </p>
+
+            {/* TITLE */}
+            <h3
+              className="
+                text-3xl
+                md:text-4xl
+
+                font-accent
+                text-primaryColor
+
+                leading-tight
+
+                mb-6
+              "
+            >
+              Beauty begins
+              <span className="block">
+                with conversation.
+              </span>
+            </h3>
+
+            {/* TEXT */}
+            <p className="text-gray-600 leading-relaxed mb-10">
+              Whether you’re preparing for your special day,
+              booking a glam session, or joining a personalized
+              makeup class — feel free to reach out anytime.
+            </p>
+
+            {/* CONTACT ITEMS */}
+            <div className="space-y-8">
+
+              {/* PHONE */}
+              <div className="flex items-start gap-4">
+                <div
+                  className="
+                    w-11 h-11
+
+                    bg-primaryColor/10
+
+                    flex items-center justify-center
+
+                    text-primaryColor
+                  "
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 5a2 2 0 012-2h3.2a1 1 0 01.98.804l.74 3.7a1 1 0 01-.27.92l-1.62 1.62a16 16 0 006.36 6.36l1.62-1.62a1 1 0 01.92-.27l3.7.74A1 1 0 0121 15.8V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-gray-400 mb-1">
+                    Phone
+                  </p>
+
+                  <a
+                    href="tel:+917247874192"
+                    className="text-gray-700 hover:text-primaryColor transition"
+                  >
+                    +91 72478 74192
+                  </a>
+                </div>
+              </div>
+
+              {/* EMAIL */}
+              <div className="flex items-start gap-4">
+                <div
+                  className="
+                    w-11 h-11
+
+                    bg-primaryColor/10
+
+                    flex items-center justify-center
+
+                    text-primaryColor
+                  "
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16 12H8m8-4H8m-2 8h12a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-gray-400 mb-1">
+                    Email
+                  </p>
+
+                  <p className="text-gray-700">
+                    makeupbyshreya@email.com
+                  </p>
+                </div>
+              </div>
+
+              {/* LOCATION */}
+              <div className="flex items-start gap-4">
+                <div
+                  className="
+                    w-11 h-11
+
+                    bg-primaryColor/10
+
+                    flex items-center justify-center
+
+                    text-primaryColor
+                  "
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                    />
+
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-gray-400 mb-1">
+                    Location
+                  </p>
+
+                  <p className="text-gray-700">
+                    Delhi, India
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* CONTACT DETAILS */}
-            <div className="space-y-6 text-gray-600 text-sm">
+            {/* SOCIALS */}
+            <div className="mt-12 flex items-center gap-4">
 
-              <div>
-                <p className="text-gray-400 text-xs mb-1">PHONE</p>
-                <p>+91 7247874192</p>
-              </div>
-
-              <div>
-                <p className="text-gray-400 text-xs mb-1">EMAIL</p>
-                <p>makeupbyshreya@email.com</p>
-              </div>
-
-              <div>
-                <p className="text-gray-400 text-xs mb-1">LOCATION</p>
-                <p>Delhi, India</p>
-              </div>
-
-            </div>
-
-            {/* SOCIAL */}
-            <div className="flex gap-6 text-sm text-gray-500">
+              {/* INSTAGRAM */}
               <a
-                href="https://www.instagram.com/makeupby__shreya"
+                href="https://www.instagram.com/withh_shreya"
                 target="_blank"
-                className="hover:text-primaryColor transition"
+                rel="noopener noreferrer"
+                className="
+                  px-5 py-3
+
+                  border border-black/5
+
+                  bg-white
+
+                  text-sm text-gray-600
+
+                  hover:bg-primaryColor
+                  hover:text-white
+
+                  transition-all duration-300
+                "
               >
                 Instagram
               </a>
 
+              {/* WHATSAPP */}
               <a
                 href="https://wa.me/917247874192"
                 target="_blank"
-                className="hover:text-primaryColor transition"
+                rel="noopener noreferrer"
+                className="
+                  px-5 py-3
+
+                  border border-black/5
+
+                  bg-white
+
+                  text-sm text-gray-600
+
+                  hover:bg-primaryColor
+                  hover:text-white
+
+                  transition-all duration-300
+                "
               >
                 WhatsApp
               </a>
             </div>
           </div>
 
-          {/* RIGHT SIDE FORM */}
-          <form className="space-y-6">
+          {/* ================= FORM PANEL ================= */}
+          <div
+            className="
+              bg-white/70
+              backdrop-blur-xl
 
-            <input
-              name="name"
-              placeholder="Your Name"
-              value={form.name}
-              onChange={handleChange}
-              className="
-                w-full px-4 py-3
-                bg-white rounded-xl
-                border border-gray-200
-                outline-none
-                focus:border-primaryColor
-              "
-            />
+              border border-white/40
 
-            <input
-              name="email"
-              placeholder="Your Email"
-              value={form.email}
-              onChange={handleChange}
-              className="
-                w-full px-4 py-3
-                bg-white rounded-xl
-                border border-gray-200
-                outline-none
-                focus:border-primaryColor
-              "
-            />
+              shadow-[0_10px_40px_rgba(0,0,0,0.04)]
 
-            <textarea
-              name="message"
-              rows={5}
-              placeholder="Your Message"
-              value={form.message}
-              onChange={handleChange}
-              className="
-                w-full px-4 py-3
-                bg-white rounded-xl
-                border border-gray-200
-                outline-none
-                focus:border-primaryColor
-              "
-            />
+              p-8 md:p-10
+            "
+          >
+            {/* LABEL */}
+            <p className="text-[11px] tracking-[0.3em] uppercase text-gray-400 mb-8">
+              SEND A MESSAGE
+            </p>
 
-            <button
-              type="submit"
-              className="
-                w-full py-3
-                bg-primaryColor text-white
-                rounded-xl
-                hover:opacity-90
-                transition
-              "
-            >
-              Send Message
-            </button>
-          </form>
+            <form className="space-y-6">
+
+              {/* NAME */}
+              <div>
+                <label className="text-xs tracking-widest text-gray-400 block mb-3">
+                  YOUR NAME
+                </label>
+
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className="
+                    w-full
+
+                    px-5 py-4
+
+                    bg-white
+
+                    border border-black/5
+
+                    outline-none
+
+                    text-gray-700
+
+                    placeholder:text-gray-300
+
+                    focus:border-primaryColor/40
+
+                    transition-all duration-300
+                  "
+                />
+              </div>
+
+              {/* EMAIL */}
+              <div>
+                <label className="text-xs tracking-widest text-gray-400 block mb-3">
+                  EMAIL ADDRESS
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="
+                    w-full
+
+                    px-5 py-4
+
+                    bg-white
+
+                    border border-black/5
+
+                    outline-none
+
+                    text-gray-700
+
+                    placeholder:text-gray-300
+
+                    focus:border-primaryColor/40
+
+                    transition-all duration-300
+                  "
+                />
+              </div>
+
+              {/* MESSAGE */}
+              <div>
+                <label className="text-xs tracking-widest text-gray-400 block mb-3">
+                  YOUR MESSAGE
+                </label>
+
+                <textarea
+                  name="message"
+                  rows={6}
+                  placeholder="Tell me about your booking or inquiry..."
+                  value={form.message}
+                  onChange={handleChange}
+                  className="
+                    w-full
+
+                    px-5 py-4
+
+                    bg-white
+
+                    border border-black/5
+
+                    outline-none
+
+                    resize-none
+
+                    text-gray-700
+
+                    placeholder:text-gray-300
+
+                    focus:border-primaryColor/40
+
+                    transition-all duration-300
+                  "
+                />
+              </div>
+
+              {/* BUTTON */}
+              <button
+                type="submit"
+                className="
+                  group
+
+                  w-full
+
+                  py-4
+
+                  bg-primaryColor
+                  text-white
+
+                  transition-all duration-500
+
+                  hover:-translate-y-1
+                  hover:shadow-[0_15px_35px_rgba(115,74,113,0.25)]
+                "
+              >
+                <span className="flex items-center justify-center gap-3">
+                  Send Message
+
+                  <svg
+                    className="
+                      w-4 h-4
+
+                      transition-transform duration-300
+
+                      group-hover:translate-x-1
+                      group-hover:-translate-y-1
+                    "
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M7 17L17 7M7 7h10v10"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </form>
+          </div>
         </div>
 
-        {/* BOTTOM CTA */}
-        <div className="mt-10 text-center">
-          <p className="text-gray-500 mb-4">
-            Prefer quick response?
+        {/* ================= BOTTOM CTA ================= */}
+        <div className="text-center mt-20">
+          <p className="text-gray-500 mb-5">
+            Prefer a quicker response?
           </p>
 
           <a
             href="https://wa.me/917247874192"
             target="_blank"
+            rel="noopener noreferrer"
             className="
-              inline-block px-8 py-3
+              inline-flex items-center gap-3
+
+              px-8 py-4
+
               border border-primaryColor
+
               text-primaryColor
-              rounded-xl
-              hover:bg-primaryColor hover:text-white
-              transition
+
+              hover:bg-primaryColor
+              hover:text-white
+
+              transition-all duration-300
             "
           >
             Chat on WhatsApp
+
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 17L17 7M7 7h10v10"
+              />
+            </svg>
           </a>
         </div>
-
       </div>
     </section>
   );
