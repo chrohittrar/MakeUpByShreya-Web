@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { FaInstagram } from "react-icons/fa";
 /* ================= IMPORT IMAGES ================= */
 
 const modules = import.meta.glob(

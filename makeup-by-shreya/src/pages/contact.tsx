@@ -1,20 +1,4 @@
-import { useState } from "react";
-
 const Contact = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   return (
     <section
@@ -46,32 +30,6 @@ const Contact = () => {
       />
 
       <div className="relative max-w-7xl mx-auto px-6">
-        {/* ================= HEADING ================= */}
-        {/* <div className="text-center mb-24">
-          <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-4">
-            GET IN TOUCH
-          </p>
-
-          <h2
-            className="
-              text-4xl
-              sm:text-5xl
-              md:text-7xl
-
-              font-accent
-              text-primaryColor
-              uppercase
-              tracking-tight
-            "
-          >
-            Contact Me
-          </h2>
-
-          {/* <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            For bookings, collaborations, bridal inquiries, or classes —
-            I’d love to connect with you.
-          </p> */}
-        {/* </div> */}
 
         {/* ================= MAIN GRID ================= */}
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
