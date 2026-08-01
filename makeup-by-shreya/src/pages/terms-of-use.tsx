@@ -149,7 +149,7 @@ const TermsOfUse = () => {
 
             <div className="mt-4 text-gray-600 space-y-1">
               <p>Makeup by Shreya</p>
-              <p>Email: makeupbyshreya@email.com</p>
+              <p>Email: makeupbyshreyasingh@gmail.com</p>
               <p>Phone: +91 7247874192</p>
             </div>
           </div>
