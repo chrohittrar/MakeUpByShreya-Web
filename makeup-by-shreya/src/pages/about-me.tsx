@@ -10,51 +10,23 @@ const AboutMe = () => {
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primaryColor/5 blur-3xl rounded-full" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-
         {/* HEADING */}
-        <div className="text-center mb-20 md:mb-28">
+        <div className="text-center mb-10 md:mb-28">
           <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-4">
             BEHIND THE ARTISTRY
           </p>
 
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-accent text-primaryColor tracking-tight mb-5">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-accent text-primaryColor tracking-tight ">
             ABOUT ME
           </h2>
-
-          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            My philosophy, journey, and the artistry behind every timeless look.
-          </p>
         </div>
 
         {/* MAIN GRID */}
         <div className="grid lg:grid-cols-2 gap-14 md:gap-24 items-center">
-
           {/* IMAGE SIDE */}
           <div className="relative group">
-
-            {/* BACK SHAPE */}
-            <div
-              className="
-                absolute
-                -top-6
-                -left-6
-
-                w-full
-                h-full
-
-                border border-primaryColor/10
-
-                rounded-[40px]
-
-                transition-all duration-500
-
-                group-hover:translate-x-2
-                group-hover:translate-y-2
-              "
-            />
-
             {/* IMAGE */}
-            <div className="relative overflow-hidden rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+            <div className="relative overflow-hidden rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
               <img
                 src={aboutme}
                 alt="Shreya Singh"
@@ -77,36 +49,6 @@ const AboutMe = () => {
 
           {/* TEXT SIDE */}
           <div className="relative">
-
-            {/* SMALL TAG */}
-            <div
-              className="
-                inline-flex
-                items-center
-                gap-2
-
-                px-4 py-2
-
-                rounded-full
-
-                bg-white/70
-                backdrop-blur-xl
-
-                border border-white/50
-
-                shadow-sm
-
-                mb-8
-              "
-            >
-              <div className="w-2 h-2 rounded-full bg-primaryColor" />
-
-              <span className="text-xs tracking-[0.25em] uppercase text-primaryColor">
-                Makeup Artist
-              </span>
-              
-            </div>
-
             {/* MAIN INTRO */}
             <h3
               className="
@@ -116,54 +58,45 @@ const AboutMe = () => {
                 font-accent
                 leading-tight
 
-                text-primaryColor
+                text-black
 
                 mb-8
               "
             >
               Creating beauty that
-              <span className="block italic text-primaryColor/80">
-                feels timeless.
-              </span>
+              <span className="block text-blac">feels timeless.</span>
             </h3>
 
             {/* PARAGRAPHS */}
             <div className="space-y-6 text-gray-600 leading-[1.9] text-[15px] md:text-base">
+              <p>
+                Beauty has always been more than a profession to me—it's an art
+                form, a language, and a way of helping people see themselves
+                with newfound confidence.
+              </p>
 
               <p>
-                Hi, I’m{" "}
-                <span className="font-semibold font-accent text-primaryColor">
-                  Shreya Singh Kalakoti
+                I'm{"  "}
+                <span className="font-bold font-accent text-black">
+                   Shreya
                 </span>{" "}
-                — a professional makeup artist passionate about creating
-                elegant, skin-focused looks that enhance natural beauty
-                rather than mask it.
+                a professional makeup artist dedicated to creating timeless,
+                refined looks that enhance rather than transform. My philosophy
+                is simple: the most beautiful makeup is the kind that still
+                feels like you—only more confident, radiant, and unforgettable.
               </p>
 
               <p>
-                Over the years, my journey has evolved through bridal,
-                editorial, party, and occasion makeup — working with
-                diverse faces, personalities, and styles to craft looks
-                that feel deeply personal and refined.
-              </p>
-
-              <p>
-                My approach is rooted in softness, balance, and timelessness.
-                I believe makeup should feel effortless in person,
-                luxurious on camera, and most importantly —
-                still feel like you.
-              </p>
-
-              <p>
-                Whether it’s your wedding day, a celebration, or a creative
-                shoot, every detail is thoughtfully curated to bring out
-                confidence, individuality, and grace.
+                Every face tells a different story, which is why I approach each
+                client with intention, precision, and a deep appreciation for
+                individuality. Whether it's the emotion of a bridal morning, an
+                editorial shoot, or a special celebration, I believe makeup
+                should never overpower your features—it should elevate them.
               </p>
             </div>
 
             {/* QUOTE */}
             <div className="mt-10">
-
               <div className="w-20 h-[1px] bg-primaryColor/30 mb-6" />
 
               <p
@@ -171,21 +104,21 @@ const AboutMe = () => {
                   text-lg
                   md:text-xl
 
-                  italic
+                  font-accent
+                  
 
                   text-primaryColor
 
                   leading-relaxed
                 "
               >
-                “Makeup isn’t about transformation —
-                it’s about refinement, confidence,
-                and celebrating who you already are.”
+                “Luxury isn't created with expensive products—it's created through intention, artistry, 
+                and attention to every detail."”
               </p>
             </div>
 
             {/* SIGNATURE */}
-            <p className="mt-8 text-sm tracking-[0.3em] uppercase text-gray-400">
+            <p className="mt-4 text-sm tracking-[0.3em] uppercase text-gray-400">
               — Shreya
             </p>
           </div>

@@ -254,7 +254,7 @@ const Navbar = () => {
                   </span>
 
                   {/* ARROW */}
-                  <svg
+                  {/* <svg
                     className="
                       w-5 h-5
 
@@ -273,7 +273,7 @@ const Navbar = () => {
                       strokeLinejoin="round"
                       d="M7 17L17 7M7 7h10v10"
                     />
-                  </svg>
+                  </svg> */}
                 </Link>
               ))}
             </div>

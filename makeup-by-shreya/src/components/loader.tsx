@@ -28,7 +28,7 @@ const Loader = () => {
       {/* CONTENT */}
       <div className="relative flex flex-col items-center">
         {/* MINIMAL ICON */}
-        <div className="relative w-20 h-20 flex items-center justify-center">
+        <div className="relative w-10 h-10 flex items-center justify-center">
           {/* OUTER RING */}
           <div
             className="
@@ -52,17 +52,7 @@ const Loader = () => {
               animate-spinSlow
             "
           />
-
-          {/* CENTER DOT */}
-          <div
-            className="
-              w-2.5 h-2.5
-
-              rounded-full
-
-              bg-primaryColor
-            "
-          />
+        
         </div>
 
         {/* BRAND NAME */}

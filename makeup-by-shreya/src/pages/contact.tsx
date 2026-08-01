@@ -8,7 +8,7 @@ const Contact = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm({
       ...form,
@@ -46,9 +46,8 @@ const Contact = () => {
       />
 
       <div className="relative max-w-7xl mx-auto px-6">
-
         {/* ================= HEADING ================= */}
-        <div className="text-center mb-24">
+        {/* <div className="text-center mb-24">
           <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-4">
             GET IN TOUCH
           </p>
@@ -63,22 +62,19 @@ const Contact = () => {
               text-primaryColor
               uppercase
               tracking-tight
-
-              mb-5
             "
           >
             Contact Me
           </h2>
 
-          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          {/* <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
             For bookings, collaborations, bridal inquiries, or classes —
             I’d love to connect with you.
-          </p>
-        </div>
+          </p> */}
+        {/* </div> */}
 
         {/* ================= MAIN GRID ================= */}
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16">
-
           {/* ================= LEFT PANEL ================= */}
           <div
             className="
@@ -114,21 +110,18 @@ const Contact = () => {
               "
             >
               Beauty begins
-              <span className="block">
-                with conversation.
-              </span>
+              <span className="block">with conversation.</span>
             </h3>
 
             {/* TEXT */}
             <p className="text-gray-600 leading-relaxed mb-10">
-              Whether you’re preparing for your special day,
-              booking a glam session, or joining a personalized
-              makeup class — feel free to reach out anytime.
+              Whether you’re preparing for your special day, booking a glam
+              session, or joining a personalized makeup class — feel free to
+              reach out anytime.
             </p>
 
             {/* CONTACT ITEMS */}
             <div className="space-y-8">
-
               {/* PHONE */}
               <div className="flex items-start gap-4">
                 <div
@@ -204,9 +197,7 @@ const Contact = () => {
                     Email
                   </p>
 
-                  <p className="text-gray-700">
-                    makeupbyshreya@email.com
-                  </p>
+                  <p className="text-gray-700">makeupbyshreya@email.com</p>
                 </div>
               </div>
 
@@ -249,241 +240,89 @@ const Contact = () => {
                     Location
                   </p>
 
-                  <p className="text-gray-700">
-                    Delhi, India
-                  </p>
+                  <p className="text-gray-700">Delhi, India</p>
                 </div>
               </div>
-            </div>
-
-            {/* SOCIALS */}
-            <div className="mt-12 flex items-center gap-4">
 
               {/* INSTAGRAM */}
-              <a
-                href="https://www.instagram.com/withh_shreya"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  px-5 py-3
-
-                  border border-black/5
-
-                  bg-white
-
-                  text-sm text-gray-600
-
-                  hover:bg-primaryColor
-                  hover:text-white
-
-                  transition-all duration-300
-                "
-              >
-                Instagram
-              </a>
-
-              {/* WHATSAPP */}
-              <a
-                href="https://wa.me/917247874192"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  px-5 py-3
-
-                  border border-black/5
-
-                  bg-white
-
-                  text-sm text-gray-600
-
-                  hover:bg-primaryColor
-                  hover:text-white
-
-                  transition-all duration-300
-                "
-              >
-                WhatsApp
-              </a>
-            </div>
-          </div>
-
-          {/* ================= FORM PANEL ================= */}
-          <div
-            className="
-              bg-white/70
-              backdrop-blur-xl
-
-              border border-white/40
-
-              shadow-[0_10px_40px_rgba(0,0,0,0.04)]
-
-              p-8 md:p-10
-            "
-          >
-            {/* LABEL */}
-            <p className="text-[11px] tracking-[0.3em] uppercase text-gray-400 mb-8">
-              SEND A MESSAGE
-            </p>
-
-            <form className="space-y-6">
-
-              {/* NAME */}
-              <div>
-                <label className="text-xs tracking-widest text-gray-400 block mb-3">
-                  YOUR NAME
-                </label>
-
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  value={form.name}
-                  onChange={handleChange}
+              <div className="flex items-start gap-4">
+                <div
                   className="
-                    w-full
-
-                    px-5 py-4
-
-                    bg-white
-
-                    border border-black/5
-
-                    outline-none
-
-                    text-gray-700
-
-                    placeholder:text-gray-300
-
-                    focus:border-primaryColor/40
-
-                    transition-all duration-300
-                  "
-                />
-              </div>
-
-              {/* EMAIL */}
-              <div>
-                <label className="text-xs tracking-widest text-gray-400 block mb-3">
-                  EMAIL ADDRESS
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className="
-                    w-full
-
-                    px-5 py-4
-
-                    bg-white
-
-                    border border-black/5
-
-                    outline-none
-
-                    text-gray-700
-
-                    placeholder:text-gray-300
-
-                    focus:border-primaryColor/40
-
-                    transition-all duration-300
-                  "
-                />
-              </div>
-
-              {/* MESSAGE */}
-              <div>
-                <label className="text-xs tracking-widest text-gray-400 block mb-3">
-                  YOUR MESSAGE
-                </label>
-
-                <textarea
-                  name="message"
-                  rows={6}
-                  placeholder="Tell me about your booking or inquiry..."
-                  value={form.message}
-                  onChange={handleChange}
-                  className="
-                    w-full
-
-                    px-5 py-4
-
-                    bg-white
-
-                    border border-black/5
-
-                    outline-none
-
-                    resize-none
-
-                    text-gray-700
-
-                    placeholder:text-gray-300
-
-                    focus:border-primaryColor/40
-
-                    transition-all duration-300
-                  "
-                />
-              </div>
-
-              {/* BUTTON */}
-              <button
-                type="submit"
-                className="
-                  group
-
-                  w-full
-
-                  py-4
-
-                  bg-primaryColor
-                  text-white
-
-                  transition-all duration-500
-
-                  hover:-translate-y-1
-                  hover:shadow-[0_15px_35px_rgba(115,74,113,0.25)]
-                "
-              >
-                <span className="flex items-center justify-center gap-3">
-                  Send Message
-
+      w-11 h-11
+      bg-primaryColor/10
+      flex items-center justify-center
+      text-primaryColor
+    "
+                >
+                  {/* Instagram Icon */}
                   <svg
-                    className="
-                      w-4 h-4
-
-                      transition-transform duration-300
-
-                      group-hover:translate-x-1
-                      group-hover:-translate-y-1
-                    "
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2}
                     viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M7 17L17 7M7 7h10v10"
+                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle
+                      cx="17.5"
+                      cy="6.5"
+                      r="1"
+                      fill="currentColor"
+                      stroke="none"
                     />
                   </svg>
-                </span>
-              </button>
-            </form>
+                </div>
+
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-gray-400 mb-1">
+                    Instagram
+                  </p>
+
+                  <a
+                    href="https://www.instagram.com/artistryby__shreya"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+        inline-flex
+        items-center
+        gap-2
+
+        text-gray-700
+        hover:text-primaryColor
+
+        transition-colors
+        duration-300
+      "
+                  >
+                    <span>
+                      @artistryby_shreya
+                    </span>
+
+                    {/* Arrow Icon */}
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M7 17L17 7M7 7h10v10"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* ================= BOTTOM CTA ================= */}
         <div className="text-center mt-20">
-          <p className="text-gray-500 mb-5">
-            Prefer a quicker response?
-          </p>
+          <p className="text-gray-500 mb-5">Prefer a quicker response?</p>
 
           <a
             href="https://wa.me/917247874192"
@@ -505,7 +344,6 @@ const Contact = () => {
             "
           >
             Chat on WhatsApp
-
             <svg
               className="w-4 h-4"
               fill="none"

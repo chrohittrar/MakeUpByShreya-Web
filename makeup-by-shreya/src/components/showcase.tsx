@@ -1,28 +1,28 @@
 import { useNavigate } from "react-router-dom";
 
-import bridal_8 from "../assets/portfolio-photos/bridal_8.jpeg";
-import cocktail_3 from "../assets/portfolio-photos/cocktail_3.jpeg";
-import engagement_8 from "../assets/portfolio-photos/engagement_8.jpeg";
-import haldi_2 from "../assets/portfolio-photos/haldi_2.jpeg";
+import bridal_12 from "../assets/portfolio-photos/bridal_12.jpeg";
+import prebridalrituals1 from "../assets/portfolio-photos/prebridalrituals1.jpeg";
+import showcase_2 from "../assets/portfolio-photos/showcase_2.jpeg";
+import prebridal_12 from "../assets/portfolio-photos/prebridal_12.jpeg";
 
 const showcaseImages = [
   {
-    image: bridal_8,
+    image: bridal_12,
     title: "Soft Bridal Glam",
     category: "Bridal",
   },
   {
-    image: cocktail_3,
+    image: prebridalrituals1,
     title: "Elegant Cocktail",
     category: "Cocktail",
   },
   {
-    image: engagement_8,
+    image: showcase_2,
     title: "Engagement Elegance",
     category: "Engagement",
   },
   {
-    image: haldi_2,
+    image: prebridal_12,
     title: "Haldi Glow",
     category: "Haldi",
   },
@@ -44,14 +44,9 @@ const Showcase = () => {
             A SNEAK PEEK
           </p>
 
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-accent text-primaryColor mb-5 tracking-tighter">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-accent text-primaryColor tracking-tighter">
             SIGNATURE LOOKS
           </h2>
-
-          <p className="text-sm md:text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            A glimpse into timeless bridal elegance, modern glam,
-            and refined beauty crafted for every special moment.
-          </p>
         </div>
 
         {/* RESPONSIVE HORIZONTAL GALLERY */}

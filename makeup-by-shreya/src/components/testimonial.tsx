@@ -1,251 +1,160 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
 const testimonials = [
   {
     id: 1,
-    name: "Ananya Sharma",
-    occasion: "Bridal Makeup",
+    name: "Ayushi",
+    occasion: "Engagement Makeup",
     message:
-      "She made me feel confident, elegant, and truly myself on my big day. The makeup was flawless and lasted beautifully all night long.",
+      "It was amazing Shreya. I loved the look and everyone around me loved it too. You are extremely talented and sweet. Keep shining!",
   },
   {
     id: 2,
-    name: "Riya Mehta",
-    occasion: "Engagement Makeup",
+    name: "Anjali",
+    occasion: "Party Glam",
     message:
-      "Absolutely loved the soft, natural finish. Everyone complimented my makeup and how radiant my skin looked in photographs.",
+      "The makeup was beautiful—subtle, polished and never cakey. Thank you for not letting me down. For my engagement, bridal makeup or any future look, I will contact you only.",
   },
   {
     id: 3,
-    name: "Sneha Kapoor",
+    name: "Rakhi",
     occasion: "Party Glam",
     message:
-      "Very professional and calming throughout the session. The final look was classy, modern, and exactly what I had envisioned.",
+      "You made me feel so comfortable, and the look turned out exactly how I wanted. It stayed fresh for hours and I received so many compliments. I cannot wait to book with you again!",
   },
 ];
 
 const Testimonials = () => {
   const [current, setCurrent] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<{ x: number; scrollLeft: number } | null>(null);
 
-  /* AUTO SLIDE */
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+  const updateCurrentSlide = () => {
+    const slider = sliderRef.current;
+    if (!slider) return;
 
-    return () => clearInterval(interval);
-  }, [current]);
+    const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+    const slides = Array.from(slider.children) as HTMLElement[];
+    const closestIndex = slides.reduce((closest, slide, index) => {
+      const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+      const closestSlide = slides[closest];
+      const closestCenter = closestSlide.offsetLeft + closestSlide.offsetWidth / 2;
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % testimonials.length);
+      return Math.abs(slideCenter - sliderCenter) <
+        Math.abs(closestCenter - sliderCenter)
+        ? index
+        : closest;
+    }, 0);
+
+    setCurrent(closestIndex);
   };
 
-  const prevSlide = () => {
-    setCurrent(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
+  const startDragging = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+    dragStart.current = {
+      x: event.clientX,
+      scrollLeft: event.currentTarget.scrollLeft,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const dragSlider = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragStart.current) return;
+    event.currentTarget.scrollLeft =
+      dragStart.current.scrollLeft - (event.clientX - dragStart.current.x);
+  };
+
+  const stopDragging = () => {
+    dragStart.current = null;
   };
 
   return (
     <section
       id="testimonials"
-      className="relative py-24 md:py-32 overflow-hidden bg-[#FBF6F2]"
+      className="relative overflow-hidden bg-[#F4EBE5] py-20 md:py-28"
     >
-      {/* SOFT BACKGROUND GLOW */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primaryColor/5 blur-3xl rounded-full" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-
-        {/* HEADING */}
-        <div className="text-center mb-20">
-          <p className="text-xs tracking-[0.35em] uppercase text-[#5D5D5D]/50 mb-4">
-            KIND WORDS
-          </p>
-
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-accent text-primaryColor tracking-tight mb-5">
-            WHAT CLIENTS SAYS
-          </h2>
-
-          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Every face tells a story — here’s what my beautiful clients
-            shared after their experience.
-          </p>
-        </div>
-
-        {/* TESTIMONIAL CARD */}
-        <div className="relative flex items-center justify-center">
-
-          {/* LEFT BUTTON */}
-          <button
-            onClick={prevSlide}
-            className="
-              hidden md:flex
-              absolute left-0 z-20
-
-              w-14 h-14
-
-              bg-white/90
-              backdrop-blur-xl
-
-              border border-white/40
-
-              shadow-xl
-
-              items-center justify-center
-
-              text-primaryColor text-2xl
-
-              transition-all duration-300
-
-              hover:scale-110
-              hover:bg-primaryColor
-              hover:text-white
-            "
-          >
-            ←
-          </button>
-
-          {/* CARD */}
-          <div
-            className="
-              relative
-
-              max-w-4xl
-              w-full
-
-              bg-white/70
-              backdrop-blur-2xl
-
-              border border-white/40
-
-              px-8 py-12
-              md:px-16 md:py-20
-
-              shadow-[0_10px_50px_rgba(0,0,0,0.08)]
-
-              overflow-hidden
-            "
-          >
-            {/* TOP DECOR */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primaryColor/40 to-transparent" />
-
-            {/* QUOTE ICON */}
-            <div className="text-[80px] md:text-[110px] leading-none text-primaryColor/10 font-serif absolute top-6 left-8">
-              “
-            </div>
-
-            {/* MESSAGE */}
-            <div className="relative z-10 mt-6">
-              <p
-                className="
-                  text-lg
-                  md:text-2xl
-
-                  text-brandGray
-
-                  leading-relaxed
-                  md:leading-[1.8]
-
-                  text-center
-
-                  max-w-3xl
-                  mx-auto
-                "
-              >
-                {testimonials[current].message}
-              </p>
-
-              {/* CLIENT */}
-              <div className="mt-12 text-center">
-                <div className="w-14 h-[1px] bg-primaryColor/30 mx-auto mb-5" />
-
-                <h3 className="text-xl md:text-2xl font-accent font-medium text-primaryColor">
-                  {testimonials[current].name}
-                </h3>
-
-                <p className="text-sm text-gray-400 mt-2">
-                  {testimonials[current].occasion}
-                </p>
-              </div>
-            </div>
+      <div className="relative mx-auto max-w-[1500px]">
+        <div className="mb-12 px-6 text-center md:mb-16">
+          <div className="mb-5 flex items-center justify-center gap-4">
+            <p className="text-[11px] tracking-[0.35em] uppercase text-[#5D5D5D]/50 ">
+              Love Notes
+            </p>
           </div>
 
-          {/* RIGHT BUTTON */}
-          <button
-            onClick={nextSlide}
-            className="
-              hidden md:flex
-              absolute right-0 z-20
-
-              w-14 h-14
-             
-
-              bg-white/90
-              backdrop-blur-xl
-
-              border border-white/40
-
-              shadow-xl
-
-              items-center justify-center
-
-              text-primaryColor text-2xl
-
-              transition-all duration-300
-
-              hover:scale-110
-              hover:bg-primaryColor
-              hover:text-white
-            "
-          >
-            →
-          </button>
+          <h2 className="font-accent text-4xl tracking-tight text-primaryColor sm:text-5xl md:text-7xl">
+            WORDS FROM MY CLIENTS
+          </h2>
         </div>
 
-        {/* MOBILE NAVIGATION */}
-        <div className="flex md:hidden justify-center gap-4 mt-8">
-          <button
-            onClick={prevSlide}
-            className="
-              w-10 h-10 
-              bg-white shadow-lg
-              flex items-center justify-center
-              text-primaryColor
-            "
-          >
-            ←
-          </button>
+        <div
+          ref={sliderRef}
+          onScroll={updateCurrentSlide}
+          onPointerDown={startDragging}
+          onPointerMove={dragSlider}
+          onPointerUp={stopDragging}
+          onPointerCancel={stopDragging}
+          onPointerLeave={stopDragging}
+          className="scrollbar-hide flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto px-[6vw] pb-10 active:cursor-grabbing md:gap-8 md:px-[14vw]"
+          aria-label="Client testimonials"
+        >
+          {testimonials.map((testimonial, index) => (
+            <article
+              key={testimonial.id}
+              className="relative flex min-h-[440px] w-[88vw] flex-none snap-center flex-col justify-between overflow-hidden border border-white/70 bg-[#FFFCFA] px-7 py-10 shadow-[0_24px_70px_rgba(79,45,75,0.10)] sm:px-12 md:min-h-[480px] md:w-[68vw] md:max-w-4xl md:px-16 md:py-14"
+            >
+              <div className="absolute right-6 top-3 font-serif text-[8rem] leading-none text-primaryColor/[0.06] md:right-10 md:text-[11rem]">
+                “
+              </div>
+              <div className="absolute left-0 top-0 h-full w-1 bg-primaryColor" />
 
-          <button
-            onClick={nextSlide}
-            className="
-              w-10 h-10 
-              bg-white shadow-lg
-              flex items-center justify-center
-              text-primaryColor
-            "
-          >
-            →
-          </button>
+              <div className="relative">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.32em] text-primaryColor/45">
+                    Client Story
+                  </span>
+                  <span className="font-accent text-sm text-primaryColor/35">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                <p className="mt-12 max-w-3xl font-accent text-xl leading-[1.5] text-[#3D2C38] sm:text-3xl md:text-[2.15rem] md:leading-[1.55]">
+                  “{testimonial.message}”
+                </p>
+              </div>
+
+              <div className="relative mt-10 flex items-end justify-between border-t border-primaryColor/10 pt-7">
+                <div>
+                  <h3 className="font-accent text-2xl text-primaryColor md:text-3xl">
+                    {testimonial.name}
+                  </h3>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.28em] text-[#6E5C68]/55">
+                    {testimonial.occasion}
+                  </p>
+                </div>
+                <div className="text-sm tracking-[0.2em] text-[#B68B72]" aria-label="5 out of 5 stars">
+                  ★★★★★
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
 
-        {/* DOTS */}
-        <div className="flex justify-center mt-12 gap-3">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`
-                transition-all duration-500 rounded-full
-                ${
-                  current === index
-                    ? "w-10 h-2 bg-primaryColor"
-                    : "w-2 h-2 bg-gray-300 hover:bg-primaryColor/50"
-                }
-              `}
+        <div className="flex items-center justify-center gap-3" aria-hidden="true">
+          {testimonials.map((testimonial, index) => (
+            <span
+              key={testimonial.id}
+              className={`h-px transition-all duration-500 ${
+                current === index
+                  ? "w-12 bg-primaryColor"
+                  : "w-5 bg-primaryColor/20"
+              }`}
             />
           ))}
         </div>
+
+        <p className="mt-5 text-center text-[9px] uppercase tracking-[0.3em] text-primaryColor/35">
+          Swipe or drag to explore
+        </p>
       </div>
     </section>
   );

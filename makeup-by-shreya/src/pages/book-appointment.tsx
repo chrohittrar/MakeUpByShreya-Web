@@ -278,7 +278,7 @@ uppercase
 
                 tracking-tighter
 
-                mb-5
+                mb-2
               "
             >
               Reserve Your
@@ -287,10 +287,6 @@ uppercase
               </span>
             </h2>
 
-            <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              Let’s create a timeless look tailored beautifully
-              for your special occasion.
-            </p>
           </div>
 
           {/* ================= MAIN CARD ================= */}
@@ -498,7 +494,7 @@ uppercase
                     value={formData.phone}
                     onChange={handleChange}
                     maxLength={10}
-                    placeholder="9876543210"
+                    placeholder=""
                     className="
                       w-full
 
@@ -529,6 +525,7 @@ uppercase
 
                   <input
                     type="date"
+                    placeholder="DD-MM-YYYY"
                     name="date"
                     min={today}
                     value={formData.date}
@@ -682,7 +679,7 @@ uppercase
                     transition-all duration-300
                   "
                 >
-                  ✦
+                  🗑️
                 </button>
               </div>
             </form>

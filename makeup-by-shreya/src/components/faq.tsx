@@ -38,7 +38,7 @@ const FAQ = () => {
       id="faq"
       className="
         relative
-        py-24 md:py-32
+        py-12 md:py-16
         bg-[#FBF6F2]
         overflow-hidden
       "
@@ -78,15 +78,11 @@ uppercase
 
               tracking-tight
 
-              mb-5
+              
             "
           >
             Frequently Asked
           </h2>
-
-          <p className="text-gray-500 max-w-xl mx-auto leading-relaxed">
-            Everything you need to know before booking your session.
-          </p>
         </div>
 
         {/* FAQ ITEMS */}
@@ -176,15 +172,13 @@ uppercase
 
                       flex items-center justify-center
 
-                      border border-black/5
 
-                      bg-white
 
                       transition-all duration-500
 
                       ${
                         isOpen
-                          ? "rotate-45 bg-primaryColor text-white"
+                          ? "rotate-45 text-primaryColor"
                           : "text-primaryColor"
                       }
                     `}

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-
+import { FaInstagram } from "react-icons/fa";
 /* ================= IMPORT IMAGES ================= */
 
 const modules = import.meta.glob(
@@ -9,46 +9,20 @@ const modules = import.meta.glob(
 
 /* ================= TYPES ================= */
 
-type Category =
-  | "All"
-  | "Bridal"
-  | "Engagement"
-  | "Mehandi"
-  | "Party"
-  | "Reception"
-  | "Editorial"
-  | "Cocktail"
-  | "Haldi";
-
-const categories: Category[] = [
-  "All",
-  "Bridal",
-  "Engagement",
-  "Mehandi",
-  "Party",
-  "Reception",
-  "Editorial",
-  "Cocktail",
-  "Haldi",
-];
+const categories: Category[] = ["All", "Bridal", "Pre-Bridal"];
 
 /* ================= CATEGORY DETECTOR ================= */
 
+type Category = "All" | "Bridal" | "Pre-Bridal";
+
 const getCategoryFromPath = (path: string): Category => {
-  const name = path.toLowerCase();
+  const fileName = path.split("/").pop()?.toLowerCase().trim() ?? "";
 
-  if (name.includes("bridal")) return "Bridal";
-  if (name.includes("engagement")) return "Engagement";
-  if (name.includes("party")) return "Party";
-  if (name.includes("reception")) return "Reception";
-  if (name.includes("haldi")) return "Haldi";
-  if (name.includes("mehandi")) return "Mehandi";
-  if (name.includes("editorial")) return "Editorial";
-  if (name.includes("cocktail")) return "Cocktail";
+  if (/pre[\s_-]*bridal/.test(fileName)) return "Pre-Bridal";
+  if (/bridal/.test(fileName)) return "Bridal";
 
-  return "Party";
+  return "All";
 };
-
 /* ================= CREATE ITEMS ================= */
 
 const portfolioItems = Object.entries(modules).map(
@@ -78,17 +52,14 @@ const aspectClasses: Record<string, string> = {
 /* ================= COMPONENT ================= */
 
 const Portfolio = () => {
-  const [activeCategory, setActiveCategory] =
-    useState<Category>("All");
+  const [activeCategory, setActiveCategory] = useState<Category>("Bridal");
 
   /* SORT FOR BETTER VISUAL BALANCE */
   const filteredItems = useMemo(() => {
     const items =
       activeCategory === "All"
         ? portfolioItems
-        : portfolioItems.filter(
-            (item) => item.category === activeCategory,
-          );
+        : portfolioItems.filter((item) => item.category === activeCategory);
 
     return items;
   }, [activeCategory]);
@@ -124,7 +95,6 @@ const Portfolio = () => {
       />
 
       <div className="relative max-w-7xl mx-auto px-5 md:px-6">
-
         {/* ================= HEADING ================= */}
         <div className="text-center mb-20 md:mb-24">
           <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-4">
@@ -142,22 +112,54 @@ uppercase
 
               tracking-tighter
 
-              mb-5
             "
           >
             Portfolio
           </h2>
+        </div>
 
-          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            A curated collection of bridal artistry,
-            timeless elegance, and refined beauty.
-          </p>
+        {/* ================= INSTAGRAM LINK ================= */}
+        <div className="flex justify-center -mt-12 mb-14 md:-mt-16 md:mb-16">
+          <a
+            href="https://www.instagram.com/artistryby__shreya"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+    group
+    inline-flex
+    items-center
+    gap-2
+    text-sm
+    text-gray-500
+    transition-all
+    duration-300
+    hover:text-primaryColor
+  "
+          >
+            <span className="border-b border-gray-300 pb-0.5 group-hover:border-primaryColor">
+              Explore more work on Instagram
+            </span>
+
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 17L17 7M7 7h10v10"
+              />
+            </svg>
+          </a>
         </div>
 
         {/* ================= FILTERS ================= */}
         <div
           className="
-            flex items-center justify-center
+            flex items-center justify-start
 
             gap-3 md:gap-4
 
@@ -238,6 +240,8 @@ uppercase
                 overflow-hidden
 
                 bg-white
+                border-2px
+                border-bg-gray
 
                 shadow-[0_10px_40px_rgba(0,0,0,0.05)]
 
@@ -246,7 +250,7 @@ uppercase
 
                 transition-all duration-700
 
-                hover:-translate-y-1
+                hover:-translate-y-1  
 
                 ${aspectClasses[item.aspect]}
               `}
@@ -282,27 +286,24 @@ uppercase
               />
 
               {/* TOP TAG */}
-              <div className="absolute top-4 left-4">
-                <span
-                  className="
-                    px-3 py-1.5
-
-                    text-[10px]
-                    tracking-[0.25em]
-                    uppercase
-
-                    bg-white/10
-                    backdrop-blur-md
-
-                    border border-white/10
-
-                    text-white
-                  "
-                >
-                  {item.category}
-                </span>
-              </div>
-              
+              {activeCategory !== "All" && (
+                <div className="absolute top-4 left-4">
+                  <span
+                    className="
+        px-3 py-1.5
+        text-[10px]
+        tracking-[0.25em]
+        uppercase
+        bg-white/10
+        backdrop-blur-md
+        border border-white/10
+        text-white
+      "
+                  >
+                    {item.category}
+                  </span>
+                </div>
+              )}
 
               {/* HOVER GLOW */}
               <div

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import homebgvideo from "../assets/homebgvideo.mp4";
+// import homebgvideo from "../assets/homebgvideo.mp4";
+import homebgimage from "../assets/homebgimage.jpeg";
 
 const HomeHero = () => {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ const HomeHero = () => {
   return (
     <section id="home" className="relative h-[100svh] overflow-hidden">
       {/* VIDEO */}
-      <video
+      {/* <video
         autoPlay
         muted
         loop
@@ -20,10 +21,19 @@ const HomeHero = () => {
         "
       >
         <source src={homebgvideo} type="video/mp4" />
-      </video>
+      </video> */}
+
+      <img
+  src={homebgimage}
+  alt="Makeup by Shreya"
+  className="
+    absolute inset-0
+    w-full h-full
+    object-cover
+  "
+/>
 
       {/* DARK OVERLAY */}
-      <div className="absolute inset-0 bg-black/30" />
 
       {/* BOTTOM FADE */}
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white via-white/70 to-transparent z-10" />
@@ -92,6 +102,7 @@ const HomeHero = () => {
               </svg>
             </span>
           </button>
+
         </div>
       </div>
     </section>
