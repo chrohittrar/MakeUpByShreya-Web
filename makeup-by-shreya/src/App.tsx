@@ -13,12 +13,14 @@ import Portfolio from "./pages/portfolio";
 import PrivacyPolicy from "./pages/privacy-policy";
 import ScrollToTop from "./components/scroll-to-top";
 import TermsOfUse from "./pages/terms-of-use";
+import InvoiceGenerator from "./pages/invoice-generator";
 
 import { initGA, pageView } from "./utils/analytics";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const isInvoiceStudio = location.pathname === "/invoice-generator";
 
   // Loader
   useEffect(() => {
@@ -42,7 +44,7 @@ const App = () => {
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
 
-      <Navbar />
+      {!isInvoiceStudio && <Navbar />}
 
       <main className="flex-grow">
         <Routes>
@@ -54,10 +56,11 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-use" element={<TermsOfUse />} />
+          <Route path="/invoice-generator" element={<InvoiceGenerator />} />
         </Routes>
       </main>
 
-      <Footer />
+      {!isInvoiceStudio && <Footer />}
     </div>
   );
 };
